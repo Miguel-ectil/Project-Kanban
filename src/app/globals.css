@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  flex-basis: 200px;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+body {
+  background-color: #F1F0FF;
+}
