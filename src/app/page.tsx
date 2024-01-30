@@ -17,10 +17,13 @@ const Card = ({ id, text, index, moveCard }: any) => {
 
   const [, drop] = useDrop({
     accept: ItemType,
-    hover: (draggedItem) => {
+    hover: (draggedItem: any) => {
       if (draggedItem.index !== index) {
-        moveCard(draggedItem.index, index);
-        draggedItem.index = index;
+        // Evitar chamadas múltiplas durante o hover
+        if (draggedItem.index !== index - 1 && draggedItem.index !== index + 1) {
+          moveCard(draggedItem.index, index, true);
+          draggedItem.index = index;
+        }
       }
     },
   });
@@ -34,36 +37,85 @@ const Card = ({ id, text, index, moveCard }: any) => {
     <animated.div
       ref={(node) => drag(drop(node))}
       style={{ ...style, cursor: "grab" }}
-      className="border bg-[#FFFFFF] rounded-lg px-4 py-2"
+      className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2"
     >
       {text}
     </animated.div>
   );
 };
 
-export default function Home() {
-  const [cards, setCards] = useState([
-    { id: 1, text: "Testar Navegadores" },
-    { id: 2, text: "Atualizar Bibliotecas" },
-    { id: 3, text: "Atualizar Bibliotecas" },
-    { id: 4, text: "Final Project: App Development" },
-  ]);
+const dados = [
+  { id: 1, text: "Testar Navegadores" },
+  { id: 2, text: "Atualizar Bibliotecas" },
+  { id: 3, text: "Atualizar Bibliotecas" },
+  { id: 4, text: "Final Project: App Development" },
+];
 
-  const moveCard = (fromIndex: number, toIndex: number) => {
-    const updatedCards = [...cards];
-    const [movedCard] = updatedCards.splice(fromIndex, 1);
-    updatedCards.splice(toIndex, 0, movedCard);
-    setCards(updatedCards);
+export default function Home() {
+  const [columns, setColumns] = useState({
+    requested: {
+      name: "Requested",
+      items: dados
+    },
+    toDo: {
+      name: "To do",
+      items: [],
+    },
+    inProgress: {
+      name: "Doing",
+      items: [],
+    },
+    done: {
+      name: "Done",
+      items: [],
+    },
+  });
+
+  const moveCard = (result: any) => {
+    if (!result.destination) return;
+
+    const fromIndex = result.source.index;
+    const toIndex = result.destination.index;
+    const isSameColumn = result.source.droppableId === result.destination.droppableId;
+
+    setColumns((prevColumns) => {
+      const updatedColumns = { ...prevColumns };
+      const sourceColumn = updatedColumns[result.source.droppableId];
+      const destColumn = updatedColumns[result.destination.droppableId];
+      const sourceItems = [...sourceColumn.items];
+      const destItems = [...destColumn.items];
+      const [movedCard] = sourceItems.splice(fromIndex, 1);
+
+      if (isSameColumn) {
+        destItems.splice(toIndex, 0, movedCard);
+      } else {
+        destItems.push({ id: Date.now(), text: movedCard.text });
+      }
+
+      return {
+        ...updatedColumns,
+        [result.source.droppableId]: {
+          ...sourceColumn,
+          items: sourceItems,
+        },
+        [result.destination.droppableId]: {
+          ...destColumn,
+          items: destItems,
+        },
+      };
+    });
   };
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="flex min-h-screen flex-col items-center justify-between py-32 px-4">
         <div className="grid grid-cols-4 z-10 gap-8">
-          {cards.map((card, index) => (
-            <div key={card.id} className="border bg-[#F2F2F2] rounded-lg px-4 py-2">
-              <strong className="text-xl">{index === 0 ? "To do" : index === 1 ? "Doing" : index === 2 ? "QA" : "Done"}</strong>
-              <Card id={card.id} text={card.text} index={index} moveCard={moveCard} />
+          {Object.keys(columns).map((columnName, colIndex) => (
+            <div key={columnName} className="border-[#4E4563] bg-[#2C243B] rounded-lg px-4 py-2">
+              <strong className="text-white text-xl">{columns[columnName].name}</strong>
+              {columns[columnName].items.map((card, index) => (
+                <Card key={card.id} id={card.id} text={card.text} index={index} moveCard={moveCard} />
+              ))}
             </div>
           ))}
         </div>
