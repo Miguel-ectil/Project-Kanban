@@ -61,7 +61,7 @@ export default function Home() {
       <div className="flex min-h-screen flex-col items-center justify-between py-32 px-4">
         <div className="grid grid-cols-4 z-10 gap-8">
           {cards.map((card, index) => (
-            <div key={card.id} className="border bg-[#F2F2F2] rounded-lg px-4 py-2">
+            <div key={index} className="border bg-[#F2F2F2] rounded-lg px-4 py-2">
               <strong className="text-xl">{index === 0 ? "To do" : index === 1 ? "Doing" : index === 2 ? "QA" : "Done"}</strong>
               <Card id={card.id} text={card.text} index={index} moveCard={moveCard} />
             </div>
