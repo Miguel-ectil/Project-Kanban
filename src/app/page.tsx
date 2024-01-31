@@ -1,14 +1,6 @@
 'use client'
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
-const dados = [
-  { id: "1", text: "Testar Navegadores" },
-  { id: "2", text: "Atualizar Bibliotecas" },
-  { id: "3", text: "Atualizar Bibliotecas" },
-  { id: "4", text: "Implementar Animações" },
-  { id: "5", text: "Final Project: App Development" },
-];
+import { motion } from "framer-motion";
 
 const Card = ({ id, text, index, columnIndex, moveCard }: any) => {
   return (
@@ -27,49 +19,46 @@ const Card = ({ id, text, index, columnIndex, moveCard }: any) => {
   );
 };
 
-export default function Home() {
+const dados = [
+  { id: "1", text: "Testar Navegadores" },
+  { id: "2", text: "Atualizar Bibliotecas" },
+  { id: "3", text: "Atualizar Bibliotecas" },
+  { id: "4", text: "Implementar Animações" },
+  { id: "5", text: "Final Project: App Development" },
+];
+
+const Home = () => {
   const [columns, setColumns] = useState({
-    requested: {
-      name: "Requested",
-      items: [],
-    },
-    toDo: {
-      name: "To do",
-      items: dados,
-    },
-    inProgress: {
-      name: "Doing",
-      items: [],
-    },
-    done: {
-      name: "Done",
-      items: [],
-    },
+    requested: { name: "Requested", items: [] },
+    toDo: { name: "To do", items: dados },
+    inProgress: { name: "Doing", items: [] },
+    done: { name: "Done", items: [] },
   });
 
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
     if (Math.abs(dragDistance) > 100) {
       setColumns((prevColumns: any) => {
         const updatedColumns = { ...prevColumns };
-        const sourceItems = [...updatedColumns[Object.keys(columns)[columnIndex]].items];
+        const sourceColumn = updatedColumns[Object.keys(updatedColumns)[columnIndex]];
+        const sourceItems = [...sourceColumn.items];
         const [movedCard] = sourceItems.splice(index, 1);
-  
-        const destColumnIndex = (dragDistance > 0 ? columnIndex + 1 : columnIndex - 1 + Object.keys(columns).length) % Object.keys(columns).length;
-        const destColumnName = Object.keys(columns)[destColumnIndex];
-  
+
+        const destColumnIndex = (dragDistance > 0 ? columnIndex + 1 : columnIndex - 1 + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
+        const destColumnName = Object.keys(updatedColumns)[(destColumnIndex + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length];
+
         if (movedCard) {
-          // Verifica se o item já não está presente na coluna de destino
-          const isDuplicate = updatedColumns[destColumnName].items.some((item: any) => item.id === id);
-  
+          const destColumn = updatedColumns[destColumnName];
+          const isDuplicate = destColumn.items.some((item: any) => item.id === id);
+
           if (!isDuplicate) {
-            updatedColumns[Object.keys(columns)[columnIndex]].items = sourceItems;
-            updatedColumns[destColumnName].items = [
-              ...updatedColumns[destColumnName].items,
-              { id, text: movedCard.text },
-            ];
+            const updatedSourceColumn = { ...sourceColumn, items: sourceItems };
+            const updatedDestColumn = { ...destColumn, items: [...destColumn.items, { id, text: movedCard.text }] };
+
+            updatedColumns[Object.keys(updatedColumns)[columnIndex]] = updatedSourceColumn;
+            updatedColumns[destColumnName] = updatedDestColumn;
           }
         }
-  
+
         return updatedColumns;
       });
     }
@@ -98,4 +87,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
