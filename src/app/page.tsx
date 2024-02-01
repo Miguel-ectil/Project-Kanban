@@ -9,9 +9,9 @@ const Card = ({ id, text, index, columnIndex, moveCard }: any) => {
       animate={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
       exit={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
       drag="x"
-      dragConstraints={{ left: 0, right: 0 }}
+      dragConstraints={{ left: -Infinity, right: Infinity }}
       dragElastic={1}
-      onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.point.x })}
+      onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
       className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2"
     >
       {text}
@@ -43,8 +43,12 @@ const Home = () => {
         const sourceItems = [...sourceColumn.items];
         const [movedCard] = sourceItems.splice(index, 1);
 
-        const destColumnIndex = (dragDistance > 0 ? columnIndex + 1 : columnIndex - 1 + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
-        const destColumnName = Object.keys(updatedColumns)[(destColumnIndex + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length];
+        let destColumnIndex = columnIndex;
+
+        // Atualizado para permitir o movimento entre colunas sem considerar a direção do arrasto
+        destColumnIndex = (columnIndex + Math.sign(dragDistance) + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
+
+        const destColumnName = Object.keys(updatedColumns)[destColumnIndex];
 
         if (movedCard) {
           const destColumn = updatedColumns[destColumnName];
