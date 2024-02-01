@@ -29,9 +29,9 @@ const dados = [
 
 const Home = () => {
   const [columns, setColumns] = useState({
-    requested: { name: "Requested", items: [] },
     toDo: { name: "To do", items: dados },
-    inProgress: { name: "Doing", items: [] },
+    doing: { name: "Doing", items: [] },
+    inProgress: { name: "QA", items: [] },
     done: { name: "Done", items: [] },
   });
 
