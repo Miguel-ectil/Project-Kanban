@@ -1,31 +1,60 @@
+
 const express = require('express');
-const bodyParser = require('body-parser');
+const router = express.Router();
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 
-const app = express();
-const PORT = 4000;
+const dadosKanban = [
+  {
+    id: "1",
+    title: "Testar Navegadores",
+    text: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
+    footer: "25/11/2023",
+    priority: "HIGH",
+  },
+  {
+    id: "2",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "3",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "4",
+    title: "Final Project : App development",
+    text: "Business Web Development.",
+    footer: "Finalizado",
+    // priority: "HIGH",
+  },
+  {
+    id: "5",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "6",
+    title: "Implementar Animações",
+    text: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
+    footer: "25/12/2023",
+    priority: "MEDIUM",
+  },
+];
 
-// Middleware para configurar o CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    return res.status(200).json({});
-  }
-  next();
-});
+// endpoint de Cupom Fiscal
+router.get('/dados-kanban', (req, res) => {  
+//   const dadosKanban =  req.params.CupomFiscal
 
-app.use(bodyParser.json());
+  res.status(200).json(dadosKanban);
+})
 
-// Importar as APIs dos arquivos separados
-const api1Router = require('../mockup/dadosKanban/dadosKanban');
-
-
-
-// Usar as APIs com a URL base desejada
-app.use('', api1Router);
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+module.exports = router;
