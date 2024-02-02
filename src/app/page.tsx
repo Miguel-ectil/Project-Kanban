@@ -16,13 +16,13 @@ const Card = ({ id, title, text, footer, priority, index, columnIndex, moveCard 
       className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2 overflow-hidden"
     >
       <div>
-        <h2 className="text-xl font-bold mb-2">{title}</h2>
-        <p>{text}</p>
+        <h2 className="text-lg font-bold mb-2">{title}</h2>
+        <p className='text-sm'>{text}</p>
         <div className="flex justify-between items-start mt-1">
           <p className="mt-2">
             <strong>{footer}</strong>
           </p>
-          <p className="border px-2 py-0.5 rounded-2xl">{priority}</p>
+          <p className="mt-2 border px-2 py-0 text-sm rounded-2xl">{priority}</p>
         </div>
       </div>
     </motion.div>
