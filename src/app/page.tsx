@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-const Card = ({ id, text, index, columnIndex, moveCard }: any) => {
+const Card = ({ id, title, text, footer, priority, index, columnIndex, moveCard }: any) => {
   return (
     <motion.div
       initial={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
@@ -12,19 +12,63 @@ const Card = ({ id, text, index, columnIndex, moveCard }: any) => {
       dragConstraints={{ left: -Infinity, right: Infinity }}
       dragElastic={1}
       onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
-      className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2"
+      className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2 overflow-hidden"
     >
-      {text}
+      <div>
+        <h2 className="text-xl font-bold mb-2">{title}</h2>
+        <p>{text}</p>
+        <div className="flex justify-between items-start mt-1">
+          <p className="mt-2"><strong>{footer}</strong></p>
+          <p className="border px-2 py-0.5 rounded-2xl">{priority}</p>
+        </div>
+      </div>
     </motion.div>
   );
 };
 
 const dados = [
-  { id: "1", text: "Testar Navegadores" },
-  { id: "2", text: "Atualizar Bibliotecas" },
-  { id: "3", text: "Atualizar Bibliotecas" },
-  { id: "4", text: "Implementar Animações" },
-  { id: "5", text: "Final Project: App Development" },
+  {
+    id: "1",
+    title: "Testar Navegadores",
+    text: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
+    footer: "25/11/2023",
+    priority: "HIGH",
+  },
+  {
+    id: "2",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "3",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "4",
+    title: "Final Project : App development",
+    text: "Business Web Development.",
+    footer: "Finalizado",
+    // priority: "HIGH",
+  },
+  {
+    id: "5",
+    title: "Atualizar Bibliotecas",
+    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    footer: "25/12/2023",
+    priority: "LOW",
+  },
+  {
+    id: "6",
+    title: "Implementar Animações",
+    text: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
+    footer: "25/12/2023",
+    priority: "MEDIUM",
+  },
 ];
 
 const Home = () => {
@@ -56,7 +100,7 @@ const Home = () => {
 
           if (!isDuplicate) {
             const updatedSourceColumn = { ...sourceColumn, items: sourceItems };
-            const updatedDestColumn = { ...destColumn, items: [...destColumn.items, { id, text: movedCard.text }] };
+            const updatedDestColumn = { ...destColumn, items: [...destColumn.items, movedCard] };
 
             updatedColumns[Object.keys(updatedColumns)[columnIndex]] = updatedSourceColumn;
             updatedColumns[destColumnName] = updatedDestColumn;
@@ -75,15 +119,18 @@ const Home = () => {
           <div key={columnName} className="border-[#4E4563] bg-[#2C243B] rounded-lg px-4 py-2">
             <strong className="text-white text-xl">{column.name}</strong>
             <div>
-              {column.items.map((card: any, index: any) => (
-                <Card
-                  key={card.id}
-                  id={card.id}
-                  text={card.text}
-                  index={index}
-                  columnIndex={colIndex}
-                  moveCard={moveCard}
-                />
+            {column.items.map((card: any, index: any) => (
+              <Card
+                key={card.id}
+                id={card.id}
+                title={card.title}
+                text={card.text}
+                footer={card.footer}
+                priority={card.priority}
+                index={index}
+                columnIndex={colIndex}
+                moveCard={moveCard}
+              />
               ))}
             </div>
           </div>
