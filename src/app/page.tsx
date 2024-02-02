@@ -1,13 +1,14 @@
 'use client'
-import { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const Card = ({ id, title, text, footer, priority, index, columnIndex, moveCard }: any) => {
   return (
     <motion.div
-      initial={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
-      animate={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
-      exit={{ opacity: 1, boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", scale: 1 }}
+      initial={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
+      animate={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
+      exit={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
       drag="x"
       dragConstraints={{ left: -Infinity, right: Infinity }}
       dragElastic={1}
@@ -18,7 +19,9 @@ const Card = ({ id, title, text, footer, priority, index, columnIndex, moveCard 
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p>{text}</p>
         <div className="flex justify-between items-start mt-1">
-          <p className="mt-2"><strong>{footer}</strong></p>
+          <p className="mt-2">
+            <strong>{footer}</strong>
+          </p>
           <p className="border px-2 py-0.5 rounded-2xl">{priority}</p>
         </div>
       </div>
@@ -26,57 +29,37 @@ const Card = ({ id, title, text, footer, priority, index, columnIndex, moveCard 
   );
 };
 
-const dados = [
-  {
-    id: "1",
-    title: "Testar Navegadores",
-    text: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
-    footer: "25/11/2023",
-    priority: "HIGH",
-  },
-  {
-    id: "2",
-    title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
-    priority: "LOW",
-  },
-  {
-    id: "3",
-    title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
-    priority: "LOW",
-  },
-  {
-    id: "4",
-    title: "Final Project : App development",
-    text: "Business Web Development.",
-    footer: "Finalizado",
-    // priority: "HIGH",
-  },
-  {
-    id: "5",
-    title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
-    priority: "LOW",
-  },
-  {
-    id: "6",
-    title: "Implementar Animações",
-    text: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
-    footer: "25/12/2023",
-    priority: "MEDIUM",
-  },
-];
-
 const Home = () => {
+  const [dadosKanban, setDadosKanban] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getDadosKanban = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/dados-kanban');
+        setDadosKanban(response.data);
+      } catch (error: any) {
+        console.error('Erro ao obter dados do Kanban:', error.message);
+      }
+    };
+
+    getDadosKanban();
+  }, []);
+
+  useEffect(() => {
+    // Atualiza o estado 'columns' quando 'dadosKanban' muda
+    setColumns((prevColumns: any) => {
+      return {
+        ...prevColumns,
+        toDo: { ...prevColumns.toDo, items: dadosKanban },
+      };
+    });
+  }, [dadosKanban]);
+
   const [columns, setColumns] = useState({
-    toDo: { name: "To do", items: dados },
-    doing: { name: "Doing", items: [] },
-    inProgress: { name: "QA", items: [] },
-    done: { name: "Done", items: [] },
+    toDo: { name: 'To do', items: dadosKanban },
+    doing: { name: 'Doing', items: [] },
+    inProgress: { name: 'QA', items: [] },
+    done: { name: 'Done', items: [] },
   });
 
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
@@ -89,7 +72,6 @@ const Home = () => {
 
         let destColumnIndex = columnIndex;
 
-        // Atualizado para permitir o movimento entre colunas sem considerar a direção do arrasto
         destColumnIndex = (columnIndex + Math.sign(dragDistance) + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
 
         const destColumnName = Object.keys(updatedColumns)[destColumnIndex];
@@ -119,18 +101,18 @@ const Home = () => {
           <div key={columnName} className="border-[#4E4563] bg-[#2C243B] rounded-lg px-4 py-2">
             <strong className="text-white text-xl">{column.name}</strong>
             <div>
-            {column.items.map((card: any, index: any) => (
-              <Card
-                key={card.id}
-                id={card.id}
-                title={card.title}
-                text={card.text}
-                footer={card.footer}
-                priority={card.priority}
-                index={index}
-                columnIndex={colIndex}
-                moveCard={moveCard}
-              />
+              {column.items.map((card: any, index: any) => (
+                <Card
+                  key={card.id}
+                  id={card.id}
+                  title={card.title}
+                  text={card.text}
+                  footer={card.footer}
+                  priority={card.priority}
+                  index={index}
+                  columnIndex={colIndex}
+                  moveCard={moveCard}
+                />
               ))}
             </div>
           </div>
