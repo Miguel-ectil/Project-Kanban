@@ -1,5 +1,5 @@
 // KanbanCard.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface KanbanCardProps {
@@ -14,6 +14,7 @@ interface KanbanCardProps {
 }
 
 const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priority, index, columnIndex, moveCard }) => {
+  const [prioridade, setPrioridade] = useState<any>(priority);
   return (
     <motion.div
       initial={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
@@ -32,7 +33,24 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
           <p className="mt-2">
             <strong>{footer}</strong>
           </p>
-          <p className="mt-2 border px-2 py-0 text-sm rounded-2xl">{priority}</p>
+          {prioridade === 'HIGH' && (
+            <p className="mt-2 border-red-500 bg-red-500 px-2 py-0 text-sm rounded-2xl">{priority}</p>
+          )}
+          {prioridade === 'LOW' && (
+            <p className="mt-2 border border-green-500 text-green-500 px-2 py-0 text-sm rounded-2xl">
+              {priority}
+            </p>
+          )}
+          {prioridade === 'Finalizado' && (
+            <p className="mt-2 border border-green-500 text-green-500 px-2 py-0 text-sm rounded-2xl">
+              {priority}
+            </p>
+          )}
+          {prioridade === 'MEDIUM' && (
+              <p className="mt-2 border border-yellow-500 text-yellow-500 px-2 py-0 text-sm rounded-2xl">
+                {priority}
+              </p>
+          )}
         </div>
       </div>
     </motion.div>
