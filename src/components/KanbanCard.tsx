@@ -1,6 +1,7 @@
 // KanbanCard.tsx
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface KanbanCardProps {
   id: string;
@@ -30,7 +31,16 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
         <h2 className="text-lg font-bold mb-2">{title}</h2>
         <p className="text-sm">{text}</p>
         <div className="flex justify-between items-start mt-1">
-          <p className="mt-2"><strong>{footer}</strong></p>
+          <div className='flex space-x-2'>
+            <Image 
+              src={'/Vector.svg'} 
+              alt={'Icone de relogio'} 
+              width={24} height={24}
+              className='text-white mt-1'
+            >
+            </Image>
+            <p className="mt-2"><strong>{footer}</strong></p>
+          </div>
           {prioridade === 'HIGH' && (
             <p className="mt-2 border-red-500 bg-red-500 px-2 py-0 text-sm rounded-2xl">{priority}</p>
           )}
