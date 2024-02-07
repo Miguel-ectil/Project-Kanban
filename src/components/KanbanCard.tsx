@@ -34,7 +34,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
           <div className='flex space-x-2'>
             <Image 
               src={'/relogio.svg'} 
-              alt={'Icone de relogio'} 
+              alt={'Icone relogio'} 
               width={24} height={24}
               className='text-white mt-1'
             >
