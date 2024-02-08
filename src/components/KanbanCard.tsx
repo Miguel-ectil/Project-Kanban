@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { BiAlarm } from 'react-icons/bi';
+
 
 interface KanbanCardProps {
   id: string;
@@ -32,13 +34,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
         <p className="text-sm">{text}</p>
         <div className="flex justify-between items-start mt-1">
           <div className='flex space-x-2'>
-            <Image 
-              src={'/relogio.svg'} 
-              alt={'Icone relogio'} 
-              width={24} height={24}
-              className='text-white mt-1'
-            >
-            </Image>
+            <BiAlarm size={24} className='mt-1.5'/>
             <p className="mt-2"><strong>{footer}</strong></p>
           </div>
           {prioridade === 'HIGH' && (
@@ -49,15 +45,10 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
               {priority}
             </p>
           )}
-          {prioridade === 'Finalizado' && (
-            <p className="mt-2 border border-green-500 text-green-500 px-2 py-0 text-sm rounded-2xl">
+          {prioridade === 'MEDIUM' && (
+            <p className="mt-2 border border-yellow-500 text-yellow-500 px-2 py-0 text-sm rounded-2xl">
               {priority}
             </p>
-          )}
-          {prioridade === 'MEDIUM' && (
-              <p className="mt-2 border border-yellow-500 text-yellow-500 px-2 py-0 text-sm rounded-2xl">
-                {priority}
-              </p>
           )}
         </div>
       </div>

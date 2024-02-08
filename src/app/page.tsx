@@ -72,8 +72,8 @@ const Home = () => {
     <div className="flex min-h-screen flex-col items-center justify-between py-32 px-4">
       <div className="grid grid-cols-4 z-10 gap-8">
         {Object.entries(columns).map(([columnName, column], colIndex) => (
-          <div key={columnName} className="border-[#4E4563] bg-[#2C243B] rounded-lg px-4 py-2">
-            <strong className="text-white text-xl">{column.name}</strong>
+          <div key={columnName} className="border-[#4E4563] bg-[#dbdbdb] rounded-lg px-4 py-2">
+            <strong className="text-black text-xl">{column.name}</strong>
             <div>
               {column.items.map((card: any, index: any) => (
                 <KanbanCard
