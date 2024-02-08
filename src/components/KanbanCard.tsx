@@ -50,7 +50,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
             )}
             {foter !== 'Finalizado' && prioridade !== 'HIGH' && (
               <>
-                <BiCheckCircle size={24} className='mt-1.5'/>
+                <BiAlarm size={24} className='mt-1.5'/>
                 <p className="mt-2 "><strong>{footer}</strong></p>
               </>
             )}
