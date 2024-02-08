@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { BiAlarm } from 'react-icons/bi';
+import { BiAlarm, BiCheckCircle  } from 'react-icons/bi';
 
 
 interface KanbanCardProps {
@@ -18,6 +18,8 @@ interface KanbanCardProps {
 
 const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priority, index, columnIndex, moveCard }) => {
   const [prioridade, setPrioridade] = useState<any>(priority);
+  const [foter, setFoter] = useState<any>(footer);
+
   return (
     <motion.div
       initial={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
@@ -34,8 +36,24 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
         <p className="text-sm">{text}</p>
         <div className="flex justify-between items-start mt-1">
           <div className='flex space-x-2'>
-            <BiAlarm size={24} className='mt-1.5'/>
-            <p className="mt-2"><strong>{footer}</strong></p>
+            {prioridade === 'HIGH' && (
+              <>
+                <BiAlarm size={24} className='mt-1.5 text-red-500'/>
+                <p className="mt-2 text-red-500"><strong>{footer}</strong></p>
+              </>
+            )}
+            {foter === 'Finalizado' && (
+              <>
+                <BiCheckCircle size={24} className='mt-1.5 text-green-500'/>
+                <p className="mt-2 text-green-500"><strong>{footer}</strong></p>
+              </>
+            )}
+            {foter !== 'Finalizado' && prioridade !== 'HIGH' && (
+              <>
+                <BiCheckCircle size={24} className='mt-1.5'/>
+                <p className="mt-2 "><strong>{footer}</strong></p>
+              </>
+            )}
           </div>
           {prioridade === 'HIGH' && (
             <p className="mt-2 border-red-500 bg-red-500 px-2 py-0 text-sm rounded-2xl">{priority}</p>
