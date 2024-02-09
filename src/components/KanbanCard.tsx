@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BiAlarm, BiCheckCircle  } from 'react-icons/bi';
+import { BiAlarm, BiCheckCircle } from 'react-icons/bi';
 
 interface KanbanCardProps {
   id: string;
@@ -43,12 +43,12 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
-      animate={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
-      exit={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
+      initial={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 1.05 }}
       drag="x"
-      dragConstraints={{ left: -Infinity, right: Infinity }}
-      dragElastic={1}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.1}
       onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
       className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2 overflow-hidden cursor-grab"
     >
