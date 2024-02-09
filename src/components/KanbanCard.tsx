@@ -47,7 +47,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       animate={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
       exit={{ opacity: 1, boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', scale: 1 }}
       drag="x"
-      dragConstraints={{ left: -Infinity, right: Infinity }}
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragElastic={1}
       onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
       className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2 overflow-hidden cursor-grab"
