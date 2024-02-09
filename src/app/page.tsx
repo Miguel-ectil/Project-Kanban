@@ -104,7 +104,7 @@ const Home = () => {
                   key={card.id}
                   id={card.id}
                   title={card.title}
-                  text={card.text}
+                  Description={card.Description}
                   finalDate={card.finalDate}
                   priority={card.priority}
                   index={index}

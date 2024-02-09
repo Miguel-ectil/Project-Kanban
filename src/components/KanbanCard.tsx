@@ -5,7 +5,7 @@ import { BiAlarm, BiCheckCircle } from 'react-icons/bi';
 interface KanbanCardProps {
   id: string;
   title: string;
-  text: string;
+  Description: string;
   finalDate: string;
   priority: string;
   index: number;
@@ -16,7 +16,7 @@ interface KanbanCardProps {
 const KanbanCard: React.FC<KanbanCardProps> = ({
   id,
   title,
-  text,
+  Description,
   finalDate,
   priority,
   index,
@@ -54,7 +54,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
     >
       <div>
         <h2 className="text-lg font-bold mb-2">{title}</h2>
-        <p className="text-sm">{text}</p>
+        <p className="text-sm">{Description}</p>
         <div className="flex justify-between items-start mt-1">
           <div className='flex space-x-2'>
             {priority === 'HIGH' && (
