@@ -18,7 +18,7 @@ export default function Header() {
       >
         <strong>+ Novo Card</strong>
       </button>
-      {isModalOpen && <NewCard onClose={() => setIsModalOpen(true)} />}
+      {isModalOpen && <NewCard onClose={() => setIsModalOpen(false)} />}
     </div>
   );
 }
