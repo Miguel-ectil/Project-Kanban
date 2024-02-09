@@ -9,48 +9,48 @@ const dadosKanban = [
   {
     id: "1",
     title: "Testar Navegadores",
-    text: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
-    footer: "25/11/2023",
+    Description: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
+    finalDate: "25/11/2023",
     priority: "HIGH",
     status: "toDo"
   },
   {
     id: "2",
     title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
+    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    finalDate: "25/12/2023",
     priority: "LOW",
     status: "inProgress"
   },
   {
     id: "3",
     title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
+    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    finalDate: "25/12/2023",
     priority: "LOW",
     status: "doing"
   },
   {
     id: "4",
     title: "Final Project : App development",
-    text: "Business Web Development.",
-    footer: "Finalizado",
+    Description: "Business Web Development.",
+    finalDate: "Finalizado",
     // priority: "HIGH",
     status: "done"
   },
   {
     id: "5",
     title: "Atualizar Bibliotecas",
-    text: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    footer: "25/12/2023",
+    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
+    finalDate: "25/12/2023",
     priority: "LOW",
     status: "toDo"
   },
   {
     id: "6",
     title: "Implementar Animações",
-    text: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
-    footer: "25/12/2023",
+    Description: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
+    finalDate: "25/12/2023",
     priority: "MEDIUM",
     status: "toDo"
   },

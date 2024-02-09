@@ -105,7 +105,7 @@ const Home = () => {
                   id={card.id}
                   title={card.title}
                   text={card.text}
-                  footer={card.footer}
+                  finalDate={card.finalDate}
                   priority={card.priority}
                   index={index}
                   columnIndex={colIndex}

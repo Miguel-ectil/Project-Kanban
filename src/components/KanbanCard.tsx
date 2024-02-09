@@ -6,7 +6,7 @@ interface KanbanCardProps {
   id: string;
   title: string;
   text: string;
-  footer: string;
+  finalDate: string;
   priority: string;
   index: number;
   columnIndex: number;
@@ -17,7 +17,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
   id,
   title,
   text,
-  footer,
+  finalDate,
   priority,
   index,
   columnIndex,
@@ -30,7 +30,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       LOW: 'green',
       Finalizado: 'hidden'
     };
-    if (footer === 'Finalizado') {
+    if (finalDate === 'Finalizado') {
       return null;
     }
 
@@ -60,19 +60,19 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
             {priority === 'HIGH' && (
               <>
                 <BiAlarm size={24} className='mt-1.5 text-red-500'/>
-                <p className="mt-2 text-red-500"><strong>{footer}</strong></p>
+                <p className="mt-2 text-red-500"><strong>{finalDate}</strong></p>
               </>
             )}
-            {footer === 'Finalizado' && (
+            {finalDate === 'Finalizado' && (
               <>
                 <BiCheckCircle size={24} className='mt-1.5 text-green-500'/>
-                <p className="mt-2 text-green-500"><strong>{footer}</strong></p>
+                <p className="mt-2 text-green-500"><strong>{finalDate}</strong></p>
               </>
             )}
-            {footer !== 'Finalizado' && priority !== 'HIGH' && (
+            {finalDate !== 'Finalizado' && priority !== 'HIGH' && (
               <>
                 <BiAlarm size={24} className='mt-1.5'/>
-                <p className="mt-2 "><strong>{footer}</strong></p>
+                <p className="mt-2 "><strong>{finalDate}</strong></p>
               </>
             )}
           </div>
