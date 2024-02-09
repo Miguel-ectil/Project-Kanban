@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard'; // Atualize o caminho conforme necessário
 
+
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
 
@@ -20,17 +21,41 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Atualiza o estado 'columns' quando 'dadosKanban' muda
-    setColumns((prevColumns: any) => {
-      return {
-        ...prevColumns,
-        toDo: { ...prevColumns.toDo, items: dadosKanban },
-      };
-    });
+    // Distribui os itens nas colunas apropriadas com base no status
+    const distribuirItensNasColunas = () => {
+      const colunasAtualizadas: any = {};
+      colunasAtualizadas['toDo'] = { name: 'To do', items: [] };
+      colunasAtualizadas['doing'] = { name: 'Doing', items: [] };
+      colunasAtualizadas['inProgress'] = { name: 'QA', items: [] };
+      colunasAtualizadas['done'] = { name: 'Done', items: [] };
+
+      dadosKanban.forEach((item) => {
+        switch (item.status) {
+          case 'toDo':
+            colunasAtualizadas['toDo'].items.push(item);
+            break;
+          case 'doing':
+            colunasAtualizadas['doing'].items.push(item);
+            break;
+          case 'inProgress':
+            colunasAtualizadas['inProgress'].items.push(item);
+            break;
+          case 'done':
+            colunasAtualizadas['done'].items.push(item);
+            break;
+          default:
+            break;
+        }
+      });
+
+      setColumns(colunasAtualizadas);
+    };
+
+    distribuirItensNasColunas();
   }, [dadosKanban]);
 
   const [columns, setColumns] = useState({
-    toDo: { name: 'To do', items: dadosKanban },
+    toDo: { name: 'To do', items: [] },
     doing: { name: 'Doing', items: [] },
     inProgress: { name: 'QA', items: [] },
     done: { name: 'Done', items: [] },
