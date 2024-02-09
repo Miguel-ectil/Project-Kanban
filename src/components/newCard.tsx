@@ -2,13 +2,13 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-export default function NewCard()  {
+export default function NewCard({ onClose }: any)  {
   const [open, setOpen] = useState(true)
 
   const cancelButtonRef = useRef(null)
     return (
-      <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Transition.Root show={true} as={Fragment}>
+        <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={onClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
