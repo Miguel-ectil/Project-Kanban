@@ -1,9 +1,6 @@
-// KanbanCard.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { BiAlarm, BiCheckCircle  } from 'react-icons/bi';
-
 
 interface KanbanCardProps {
   id: string;
@@ -16,9 +13,33 @@ interface KanbanCardProps {
   moveCard: (params: any) => void;
 }
 
-const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priority, index, columnIndex, moveCard }) => {
-  const [prioridade, setPrioridade] = useState<any>(priority);
-  const [foter, setFoter] = useState<any>(footer);
+const KanbanCard: React.FC<KanbanCardProps> = ({
+  id,
+  title,
+  text,
+  footer,
+  priority,
+  index,
+  columnIndex,
+  moveCard
+}) => {
+  const renderPriorityBadge = () => {
+    const priorityColors: Record<string, string> = {
+      HIGH: 'red',
+      MEDIUM: 'yellow',
+      LOW: 'green',
+      Finalizado: 'hidden'
+    };
+    if (footer === 'Finalizado') {
+      return null;
+    }
+
+    return (
+      <p className={`mt-2 border border-${priorityColors[priority]}-500 text-${priorityColors[priority]}-500 px-2 py-0 text-sm rounded-2xl`}>
+        {priority}
+      </p>
+    );
+  };
 
   return (
     <motion.div
@@ -36,38 +57,26 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ id, title, text, footer, priori
         <p className="text-sm">{text}</p>
         <div className="flex justify-between items-start mt-1">
           <div className='flex space-x-2'>
-            {prioridade === 'HIGH' && (
+            {priority === 'HIGH' && (
               <>
                 <BiAlarm size={24} className='mt-1.5 text-red-500'/>
                 <p className="mt-2 text-red-500"><strong>{footer}</strong></p>
               </>
             )}
-            {foter === 'Finalizado' && (
+            {footer === 'Finalizado' && (
               <>
                 <BiCheckCircle size={24} className='mt-1.5 text-green-500'/>
                 <p className="mt-2 text-green-500"><strong>{footer}</strong></p>
               </>
             )}
-            {foter !== 'Finalizado' && prioridade !== 'HIGH' && (
+            {footer !== 'Finalizado' && priority !== 'HIGH' && (
               <>
                 <BiAlarm size={24} className='mt-1.5'/>
                 <p className="mt-2 "><strong>{footer}</strong></p>
               </>
             )}
           </div>
-          {prioridade === 'HIGH' && (
-            <p className="mt-2 border-red-500 bg-red-500 px-2 py-0 text-sm rounded-2xl">{priority}</p>
-          )}
-          {prioridade === 'LOW' && (
-            <p className="mt-2 border border-green-500 text-green-500 px-2 py-0 text-sm rounded-2xl">
-              {priority}
-            </p>
-          )}
-          {prioridade === 'MEDIUM' && (
-            <p className="mt-2 border border-yellow-500 text-yellow-500 px-2 py-0 text-sm rounded-2xl">
-              {priority}
-            </p>
-          )}
+          {renderPriorityBadge()}
         </div>
       </div>
     </motion.div>
