@@ -26,16 +26,20 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
   const renderPriorityBadge = () => {
     const priorityColors: Record<string, string> = {
       HIGH: 'red',
-      MEDIUM: 'yellow',
+      MEDIUM: 'orange',
       LOW: 'green',
       Finalizado: 'hidden'
     };
     if (finalDate === 'Finalizado') {
       return null;
     }
+    
+    const style = {
+      border: `1px solid ${priorityColors[priority]}`
+    };
 
     return (
-      <p className={`mt-2 border border-${priorityColors[priority]}-500 text-${priorityColors[priority]}-500 px-2 py-0 text-sm rounded-2xl`}>
+      <p style={style} className={`mt-2 border border-${priorityColors[priority]}-500 text-${priorityColors[priority]}-500 px-2 py-0 text-sm rounded-2xl`}>
         {priority}
       </p>
     );
