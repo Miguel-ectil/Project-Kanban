@@ -40,7 +40,7 @@ export default function NewCard({ onClose }: any) {
                         New Card
                       </Dialog.Title>
                       <div className="mt-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                        <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
                           Titulo da task
                         </label>
                         <input 
@@ -48,15 +48,15 @@ export default function NewCard({ onClose }: any) {
                           placeholder='Digite aqui o titulo da task'
                           className='border p-2 rounded-lg flex w-full'
                         />
-                        <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="Descrição">
+                        <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
                           Description
                         </label>
                         <textarea 
                           name="Descrição"
                           id=""
-                          className='border p-2 rounded-lg '
+                          className='border p-2 rounded-lg w-full'
                           placeholder='Digite a descrição'
-                          cols="46" rows="2"
+                          // cols="46" rows="2"
                         >
 
                         </textarea>
