@@ -58,12 +58,20 @@ export default function NewCard({ onClose }: any) {
                           placeholder='Digite a descrição'
                           // cols="46" rows="2"
                         >
-
                         </textarea>
-                        <p className="text-sm text-gray-500">
-                          Are you sure you want to deactivate your account? All of your data will be permanently
-                          removed. This action cannot be undone.
-                        </p>
+                        <div className='flex space-x-2'>
+                          {/* <input 
+                            type="date" 
+                            placeholder='Selecione a data de entrega'
+                            className='border p-2 rounded-lg flex '
+                          /> */}
+                          <div>
+                            <p className="text-sm text-gray-500">
+                            Are you sure you want to deactivate your account? All of your data will be permanently
+                            removed. This action cannot be undone.
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
