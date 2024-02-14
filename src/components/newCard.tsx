@@ -39,15 +39,22 @@ export default function NewCard({ onClose }: any) {
                       <Dialog.Title as="h1" className="text-base font-semibold leading-6 text-[#48409E]">
                         New Card
                       </Dialog.Title>
-                      <div className="mt-2">
+                      <div className="mt-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                          Titulo da task
+                        </label>
                         <input 
                           type="text" 
-                          className='border p-2 rounded-lg'
+                          placeholder='Digite aqui o titulo da task'
+                          className='border p-2 rounded-lg flex w-full'
                         />
+                        <label className="block text-gray-700 text-sm font-bold mb-2 mt-2" htmlFor="Descrição">
+                          Description
+                        </label>
                         <textarea 
-                          name=""
+                          name="Descrição"
                           id=""
-                          className='border p-2 rounded-lg mt-2'
+                          className='border p-2 rounded-lg '
                           placeholder='Digite a descrição'
                           cols="46" rows="2"
                         >
