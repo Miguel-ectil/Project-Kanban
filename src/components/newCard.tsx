@@ -36,10 +36,30 @@ export default function NewCard({ onClose }: any) {
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                        Deactivate account
+                      <Dialog.Title as="h1" className="text-base font-semibold leading-6 text-[#48409E]">
+                        New Card
                       </Dialog.Title>
-                      <div className="mt-2">
+                      <div className="mt-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
+                          Titulo da task
+                        </label>
+                        <input 
+                          type="text" 
+                          placeholder='Digite aqui o titulo da task'
+                          className='border p-2 rounded-lg flex w-full'
+                        />
+                        <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
+                          Description
+                        </label>
+                        <textarea 
+                          name="Descrição"
+                          id=""
+                          className='border p-2 rounded-lg w-full'
+                          placeholder='Digite a descrição'
+                          // cols="46" rows="2"
+                        >
+
+                        </textarea>
                         <p className="text-sm text-gray-500">
                           Are you sure you want to deactivate your account? All of your data will be permanently
                           removed. This action cannot be undone.
