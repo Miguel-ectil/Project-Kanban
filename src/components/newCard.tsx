@@ -58,29 +58,37 @@ export default function NewCard({ onClose }: any) {
                           placeholder='Digite a descrição'
                           // cols="46" rows="2"
                         >
+
                         </textarea>
-                        <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
-                          Data Final
-                        </label>
-                        <div className='flex space-x-16'>
-                          <input 
-                            type="date" 
-                            placeholder='Selecione a data de entrega'
-                            className='border p-2 rounded-lg flex '
-                          />
+                        <div className='flex justify-between'>
                           <div>
-                            <div className='flex space-x-2 mt-2'>
-                              <p className="p-2 border rounded-3xl text-sm text-gray-500">
+                            <label 
+                              className="block text-gray-700 text-sm font-bold mb-1 mt-2" 
+                              htmlFor="Descrição"
+                            >
+                              Data Final
+                            </label>
+                            <input 
+                              type="date" 
+                              placeholder='Selecione a data de entrega'
+                              className='border p-2 rounded-lg flex w-[14rem] '
+                            />
+                          </div>
+                          <div>
+                            <p className='text-xs mt-3 mb-1'>Priority</p>
+                            <div className='flex space-x-2'>
+                              <p className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
                                 HIGH
                               </p>
-                              <p className="p-2 border rounded-3xl text-sm text-gray-500">
+                              <div className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
                                 MEDIUM
-                              </p>
-                              <p className="p-2 border rounded-3xl text-sm text-gray-500">
+                              </div>
+                              <p className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
                                 LOW
                               </p>
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </div>
