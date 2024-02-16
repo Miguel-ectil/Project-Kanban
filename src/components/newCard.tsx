@@ -32,14 +32,14 @@ export default function NewCard({ onClose }: any) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className=""> {/*sm:flex sm:items-start*/}
                     <div className="mt-3 text-center sm:ml-0 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h1" className="text-2xl font-semibold leading-6 text-[#48409E]">
                         New Card
                       </Dialog.Title>
-                      <div className="mt-4">
+                      <div className="mt-6">
                         <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
                           Titulo da task
                         </label>
