@@ -80,7 +80,7 @@ export default function NewCard({ onClose }: any) {
                               <p className="px-4 py-1 border border-[#FF7979] rounded-2xl text-xs text-[#FF7979]">
                                 HIGH
                               </p>
-                              <div className="px-4 py-1 border rounded-2xl text-xs text-gray-500">
+                              <div className="px-4 py-1 border border-[#FFBA53] rounded-2xl text-xs text-[#FFBA53]">
                                 MEDIUM
                               </div>
                               <p className="px-4 py-1 border rounded-2xl text-xs text-gray-500">
