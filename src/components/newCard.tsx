@@ -62,7 +62,7 @@ export default function NewCard({ onClose }: any) {
                         <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
                           Data Final
                         </label>
-                        <div className='flex space-x-16'>
+                        <div className='flex justify-between'>
                           <input 
                             type="date" 
                             placeholder='Selecione a data de entrega'
