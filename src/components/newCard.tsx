@@ -76,14 +76,14 @@ export default function NewCard({ onClose }: any) {
                           </div>
                           <div>
                             <p className='text-xs mt-3 mb-1'>Priority</p>
-                            <div className='flex space-x-2'>
-                              <p className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
+                            <div className='flex space-x-3'>
+                              <p className="px-4 py-1 border rounded-2xl text-xs text-gray-500">
                                 HIGH
                               </p>
-                              <div className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
+                              <div className="px-4 py-1 border rounded-2xl text-xs text-gray-500">
                                 MEDIUM
                               </div>
-                              <p className="px-2 py-1 border rounded-2xl text-xs text-gray-500">
+                              <p className="px-4 py-1 border rounded-2xl text-xs text-gray-500">
                                 LOW
                               </p>
                             </div>
@@ -97,14 +97,14 @@ export default function NewCard({ onClose }: any) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-3 sm:w-auto"
+                    className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-14 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-3 sm:w-auto"
                     // onClick={onClose} 
                   >
                     CRIAR
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl px-6 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border border-red-600"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl px-8 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border border-red-600"
                     onClick={onClose} // Chame a função onClose ao clicar no botão "Cancelar"
                     ref={cancelButtonRef}
                   >
