@@ -41,7 +41,7 @@ export default function NewCard({ onClose }: any) {
                       </Dialog.Title>
                       <div className="mt-6">
                         <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="username">
-                          Titulo da task
+                          Task title
                         </label>
                         <input 
                           type="text" 
@@ -66,7 +66,7 @@ export default function NewCard({ onClose }: any) {
                               className="block text-gray-700 text-sm font-bold mb-1 mt-2" 
                               htmlFor="Descrição"
                             >
-                              Data Final
+                              Final date
                             </label>
                             <input 
                               type="date" 
@@ -96,10 +96,10 @@ export default function NewCard({ onClose }: any) {
                 <div className="bg-gray-50 px-4 py-2.5 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-14 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
+                    className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
                     // onClick={onClose} 
                   >
-                    CRIAR
+                    CREATE
                   </button>
                   <button
                     type="button"
@@ -107,7 +107,7 @@ export default function NewCard({ onClose }: any) {
                     onClick={onClose} // Chame a função onClose ao clicar no botão "Cancelar"
                     ref={cancelButtonRef}
                   >
-                    CANCELAR
+                    CANCEL
                   </button>
                 </div>
               </Dialog.Panel>
