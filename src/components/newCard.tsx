@@ -24,7 +24,7 @@ export default function NewCard({ onClose }: any) {
         finalDate: finalDate,
         priority: priority
       };
-      const response = await axios.post('http://localhost:4000/createTask', data);
+      const response = await axios.post('http://localhost:4000/create-task', data);
       
       console.log('Tarefa criada com sucesso:', response.data);
     } catch (error: any) {
@@ -149,7 +149,7 @@ export default function NewCard({ onClose }: any) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
-                    // onClick={onClose} 
+                    onClick={postCrateTask} 
                   >
                     CREATE
                   </button>
