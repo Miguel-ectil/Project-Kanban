@@ -6,6 +6,10 @@ import { RxValue } from 'react-icons/rx';
 
 export default function NewCard({ onClose }: any) {
   const cancelButtonRef = useRef(null);
+  const  [titleTask, setTitleTask] = useState("")
+  const  [description, setDescription] = useState("")
+  const  [finalDate, setFinalDate] = useState("")
+
   const [priority, setPriority] = useState("")
 
   const priorityValue = (value: any) => {
@@ -14,6 +18,7 @@ export default function NewCard({ onClose }: any) {
   }
 
   useEffect(() => {
+    console.log(titleTask, '\n', description, '\n', finalDate)
     console.log(priority); // Será executado sempre que priority for alterado
   }, [priority]);
 
@@ -55,7 +60,9 @@ export default function NewCard({ onClose }: any) {
                           Task title
                         </label>
                         <input 
-                          type="text" 
+                          value={titleTask}
+                          onChange={(e) => setTitleTask(e.target?.value)}
+                          type="text"
                           placeholder='Digite aqui o titulo da task'
                           className='border p-2 rounded-lg flex w-full'
                         />
@@ -65,6 +72,8 @@ export default function NewCard({ onClose }: any) {
                         <textarea 
                           name="Descrição"
                           id=""
+                          value={description}
+                          onChange={(e) => setDescription(e.target?.value)}
                           className='border p-2 rounded-lg w-full'
                           placeholder='Digite a descrição'
                           // cols="46" rows="2"
@@ -80,6 +89,8 @@ export default function NewCard({ onClose }: any) {
                               Final date
                             </label>
                             <input 
+                              value={finalDate}
+                              onChange={(e) => setFinalDate(e.target?.value)}
                               type="date" 
                               placeholder='Selecione a data de entrega'
                               className='text-xs border p-2 rounded-lg flex w-[14rem] '
