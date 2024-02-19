@@ -24,7 +24,7 @@ export default function NewCard({ onClose }: any) {
         finalDate: finalDate,
         priority: priority
       };
-      const response = await axios.post('http://localhost:4000/createTask', data);
+      const response = await axios.post('http://localhost:4000/create-task', data);
       
       console.log('Tarefa criada com sucesso:', response.data);
     } catch (error: any) {
