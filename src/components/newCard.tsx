@@ -149,7 +149,7 @@ export default function NewCard({ onClose }: any) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
-                    // onClick={onClose} 
+                    onClick={postCrateTask} 
                   >
                     CREATE
                   </button>
