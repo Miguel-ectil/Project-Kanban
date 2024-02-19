@@ -18,7 +18,7 @@ export default function NewCard({ onClose }: any) {
   }
 
   useEffect(() => {
-    console.log(titleTask, '\n', description, '\n', finalDate)
+    // console.log(titleTask, '\n', description, '\n', finalDate)
     console.log(priority); // Será executado sempre que priority for alterado
   }, [priority]);
 
