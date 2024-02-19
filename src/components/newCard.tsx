@@ -77,7 +77,7 @@ export default function NewCard({ onClose }: any) {
                           <div>
                             <p className='text-xs mt-3.5 mb-1'>Priority</p>
                             <div className='flex space-x-3'>
-                              <button className="px-4 py-1 border border-[#FF7979] rounded-2xl text-xs text-[#FF7979]">
+                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF]">
                                 HIGH
                               </button>
                               <button className="px-4 py-1 border border-[#FFBA53] rounded-2xl text-xs text-[#FFBA53]">
