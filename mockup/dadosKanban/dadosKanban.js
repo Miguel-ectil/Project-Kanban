@@ -63,11 +63,25 @@ router.get('/dados-kanban', (req, res) => {
   res.status(200).json(dadosKanban);
 })
 
-// endpoint retorna dados das tarefas do Kanban
+// endpoint que cria novas tarefas do Kanban
 router.post('/create-task', (req, res) => {  
-  //   const dadosKanban =  req.params.CupomFiscal
+    // Verifica se todos os dados necessários foram fornecidos no corpo da requisição
+    const { title, description, finalDate, priority } = req.body;
+    if (!title || !description || !finalDate || !priority) {
+      return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    }
   
-    res.status(200).json(dadosKanban);
+    // Simula a criação da tarefa
+    const newTask = {
+      id: Math.floor(Math.random() * 1000), // Simula a geração de um ID único
+      title: title,
+      description: description,
+      finalDate: finalDate,
+      priority: priority
+    };
+  
+    // Retorna a nova tarefa criada
+    res.status(200).json(newTask);
   })
 
 module.exports = router;
