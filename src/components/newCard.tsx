@@ -97,7 +97,12 @@ export default function NewCard({ onClose }: any) {
                                 onClick={() => priorityValue("HIGH")}>
                                 HIGH
                               </button>
-                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]" onClick={() => priorityValue("MEDIUM")}>
+                              <button 
+                                className={`px-4 py-1 border rounded-2xl text-xs
+                                 border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]
+                                  ${priority === "MEDIUM" ? "bg-[#FFBA53] text-white" : ""}`
+                              }
+                                onClick={() => priorityValue("MEDIUM")}>
                                 MEDIUM
                               </button>
                               <button className="px-4 py-1 border rounded-2xl text-xs border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]" onClick={() => priorityValue("LOW")}>
