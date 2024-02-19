@@ -1,10 +1,21 @@
 // NewCard.js
 'use client'
-import { Fragment, useRef } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { RxValue } from 'react-icons/rx';
 
 export default function NewCard({ onClose }: any) {
   const cancelButtonRef = useRef(null);
+  const [priority, setPriority] = useState("")
+
+  const priorityValue = (value: any) => {
+    setPriority(value)
+    // console.log(priority)
+  }
+
+  useEffect(() => {
+    console.log(priority); // Será executado sempre que priority for alterado
+  }, [priority]);
 
   return (
     <Transition.Root show={true} as={Fragment}>
@@ -77,13 +88,13 @@ export default function NewCard({ onClose }: any) {
                           <div>
                             <p className='text-xs mt-3.5 mb-1'>Priority</p>
                             <div className='flex space-x-3'>
-                              <button className="px-4 py-1 border border-[#FF7979] rounded-2xl text-xs text-[#FF7979]">
+                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF]" onClick={() => priorityValue("HIGH")}>
                                 HIGH
                               </button>
-                              <button className="px-4 py-1 border border-[#FFBA53] rounded-2xl text-xs text-[#FFBA53]">
+                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]" onClick={() => priorityValue("MEDIUM")}>
                                 MEDIUM
                               </button>
-                              <button className="px-4 py-1 border border-[#2BA700] rounded-2xl text-xs text-[#2BA700]">
+                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]" onClick={() => priorityValue("LOW")}>
                                 LOW
                               </button>
                             </div>
