@@ -83,7 +83,7 @@ export default function NewCard({ onClose }: any) {
                               <button className="px-4 py-1 border rounded-2xl text-xs border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]">
                                 MEDIUM
                               </button>
-                              <button className="px-4 py-1 border border-[#2BA700] rounded-2xl text-xs text-[#2BA700]">
+                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]">
                                 LOW
                               </button>
                             </div>
