@@ -77,13 +77,13 @@ export default function NewCard({ onClose }: any) {
                           <div>
                             <p className='text-xs mt-3 mb-1'>Priority</p>
                             <div className='flex space-x-3'>
-                              <button className="px-4 py-1 border border-[#FF7979] rounded-2xl text-xs text-[#FF7979] cursor-pointer">
+                              <button className="px-4 py-1 border border-[#FF7979] rounded-2xl text-xs text-[#FF7979]">
                                 HIGH
                               </button>
-                              <button className="px-4 py-1 border border-[#FFBA53] rounded-2xl text-xs text-[#FFBA53] cursor-pointer">
+                              <button className="px-4 py-1 border border-[#FFBA53] rounded-2xl text-xs text-[#FFBA53]">
                                 MEDIUM
                               </button>
-                              <button className="px-4 py-1 border border-[#2BA700] rounded-2xl text-xs text-[#2BA700] cursor-pointer">
+                              <button className="px-4 py-1 border border-[#2BA700] rounded-2xl text-xs text-[#2BA700]">
                                 LOW
                               </button>
                             </div>
