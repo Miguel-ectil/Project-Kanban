@@ -2,7 +2,7 @@
 'use client'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { RxValue } from 'react-icons/rx';
+
 
 export default function NewCard({ onClose }: any) {
   const cancelButtonRef = useRef(null);
@@ -14,7 +14,6 @@ export default function NewCard({ onClose }: any) {
 
   const priorityValue = (value: any) => {
     setPriority(value)
-    // console.log(priority)
   }
 
   useEffect(() => {
