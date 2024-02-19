@@ -2,6 +2,7 @@
 'use client'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import axios from 'axios';
 
 
 export default function NewCard({ onClose }: any) {
@@ -9,11 +10,18 @@ export default function NewCard({ onClose }: any) {
   const  [titleTask, setTitleTask] = useState("")
   const  [description, setDescription] = useState("")
   const  [finalDate, setFinalDate] = useState("")
-
   const [priority, setPriority] = useState("")
 
   const priorityValue = (value: any) => {
     setPriority(value)
+  }
+
+  const postCrateTask = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/createTask')
+    } catch (error: any) {
+      console.log('Erro ao criar nova Tarefa', error.message)
+    }
   }
 
   useEffect(() => {
