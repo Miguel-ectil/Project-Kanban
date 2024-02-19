@@ -56,7 +56,7 @@ const dadosKanban = [
   },
 ];
 
-// endpoint de Cupom Fiscal
+// endpoint retorna dados das tarefas do Kanban
 router.get('/dados-kanban', (req, res) => {  
 //   const dadosKanban =  req.params.CupomFiscal
 
