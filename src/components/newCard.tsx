@@ -18,7 +18,15 @@ export default function NewCard({ onClose }: any) {
 
   const postCrateTask = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/createTask')
+      const data = {
+        title: titleTask,
+        description: description,
+        finalDate: finalDate,
+        priority: priority
+      };
+      const response = await axios.post('http://localhost:4000/createTask', data);
+      
+      console.log('Tarefa criada com sucesso:', response.data);
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)
     }
