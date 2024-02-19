@@ -63,4 +63,11 @@ router.get('/dados-kanban', (req, res) => {
   res.status(200).json(dadosKanban);
 })
 
+// endpoint retorna dados das tarefas do Kanban
+router.post('/create-task', (req, res) => {  
+  //   const dadosKanban =  req.params.CupomFiscal
+  
+    res.status(200).json(dadosKanban);
+  })
+
 module.exports = router;
