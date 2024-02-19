@@ -88,13 +88,28 @@ export default function NewCard({ onClose }: any) {
                           <div>
                             <p className='text-xs mt-3.5 mb-1'>Priority</p>
                             <div className='flex space-x-3'>
-                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF]" onClick={() => priorityValue("HIGH")}>
+                              <button
+                                className={`px-4 py-1 border rounded-2xl text-xs
+                                 border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF] 
+                                  ${priority === "HIGH" ? "bg-[#FF7979] text-white" : ""}`
+                                }
+                                onClick={() => priorityValue("HIGH")}>
                                 HIGH
                               </button>
-                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]" onClick={() => priorityValue("MEDIUM")}>
+                              <button 
+                                className={`px-4 py-1 border rounded-2xl text-xs
+                                 border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]
+                                  ${priority === "MEDIUM" ? "bg-[#FFBA53] text-white" : ""}`
+                                }
+                                onClick={() => priorityValue("MEDIUM")}>
                                 MEDIUM
                               </button>
-                              <button className="px-4 py-1 border rounded-2xl text-xs border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]" onClick={() => priorityValue("LOW")}>
+                              <button 
+                                className={`px-4 py-1 border rounded-2xl text-xs
+                                 border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]
+                                 ${priority === "LOW" ? "bg-[#2BA700] text-white" : ""}`
+                                } 
+                                onClick={() => priorityValue("LOW")}>
                                 LOW
                               </button>
                             </div>
