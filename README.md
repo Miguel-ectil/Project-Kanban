@@ -36,6 +36,8 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
  - cd frontend
  - npm install
  - cd ../backend
+ - criar venv (python -m venv nome)
+ - acessar venv no Linux (source venv nome/bin/activate)
  - pip install -r requirements.txt
 
 3. Inicie o servidor do backend:
