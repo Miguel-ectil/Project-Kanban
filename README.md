@@ -15,13 +15,14 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
 
 - **Frontend:**
   - JavaScript: Linguagem de programação para construção da interface do usuário.
-  - React.js: Biblioteca JavaScript para construção da interface do usuário.
-  - Material-UI: Biblioteca de componentes React para criar uma IU consistente e responsiva.
+  - TypeScript: Linguagem de programação para construção da interface do usuário.
+  - React.js/Next.js: Biblioteca JavaScript para construção da interface do usuário.
+  - TailwindCss: Biblioteca de componentes React para criar uma IU consistente e responsiva.
 
 - **Backend (API):**
   - Django Ninja: Framework web rápido, flexível e minimalista para construção de APIs com Django.
   - Python: Linguagem de programação utilizada para desenvolvimento do backend.
-  - MongoDB: Banco de dados NoSQL orientado a documentos.
+  - PostgreSql: Banco de dados SQL orientado a documentos.
 
 ## Estrutura do Projeto
 
@@ -32,10 +33,10 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
 
 1. Clone o repositório.
 2. Instale as dependências do frontend e do backend:
-  cd frontend
-  npm install
-  cd ../backend
-  pip install -r requirements.txt
+ - cd frontend
+ - npm install
+ - cd ../backend
+ - pip install -r requirements.txt
 
 3. Inicie o servidor do backend:
 python manage.py runserver
