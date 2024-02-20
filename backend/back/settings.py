@@ -49,6 +49,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    # "https://sistemadvr.com.br",
+    # "http://localhost:8090",# Frontend Vue.js
+    "http://localhost:3000",# Frontend Next
+]
+
 ROOT_URLCONF = 'back.urls'
 
 TEMPLATES = [
@@ -75,8 +81,12 @@ WSGI_APPLICATION = 'back.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'kanban_tasks',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 

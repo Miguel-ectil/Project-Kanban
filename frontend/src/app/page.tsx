@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const getDadosKanban = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/dados-kanban');
+        const response = await axios.get('http://localhost:4000/data-kanban');
         setDadosKanban(response.data);
       } catch (error: any) {
         console.error('Erro ao obter dados do Kanban:', error.message);

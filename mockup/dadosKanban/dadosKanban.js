@@ -57,7 +57,7 @@ const dadosKanban = [
 ];
 
 // endpoint retorna dados das tarefas do Kanban
-router.get('/dados-kanban', (req, res) => {  
+router.get('/data-kanban', (req, res) => {  
 //   const dadosKanban =  req.params.CupomFiscal
 
   res.status(200).json(dadosKanban);
