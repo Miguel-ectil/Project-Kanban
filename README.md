@@ -43,7 +43,7 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
 3. Inicie o servidor do backend:
 python manage.py runserver
 
-4. Inicie o servidor do frontend:
+4. Inicie o servidor do frontend: npm run dev
 
 5. Acesse o projeto em `http://localhost:3000`.
 
