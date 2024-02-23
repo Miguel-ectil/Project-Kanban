@@ -14,8 +14,7 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
 ## Tecnologias Utilizadas
 
 - **Frontend:**
-  - JavaScript: Linguagem de programação para construção da interface do usuário.
-  - TypeScript: Linguagem de programação para construção da interface do usuário.
+  - TypeScript/JavaScript: Linguagem de programação para construção da interface do usuário.
   - React.js/Next.js: Biblioteca JavaScript para construção da interface do usuário.
   - TailwindCss: Biblioteca de componentes React para criar uma IU consistente e responsiva.
 
