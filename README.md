@@ -17,6 +17,7 @@ Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o ger
   - TypeScript/JavaScript: Linguagem de programação para construção da interface do usuário.
   - React.js/Next.js: Biblioteca JavaScript para construção da interface do usuário.
   - TailwindCss: Biblioteca de componentes React para criar uma IU consistente e responsiva.
+  - React-icons: Biblioteca de icones
 
 - **Backend (API):**
   - Django Ninja: Framework web rápido, flexível e minimalista para construção de APIs com Django.
