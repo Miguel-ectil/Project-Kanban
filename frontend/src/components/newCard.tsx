@@ -108,7 +108,7 @@ export default function NewCard({ onClose }: any) {
                               onChange={(e) => setFinalDate(e.target?.value)}
                               type="date" 
                               placeholder='Selecione a data de entrega'
-                              className='text-xs border p-2 rounded-lg flex w-[14rem] '
+                              className='text-sm border p-2 rounded-lg w-[14rem] '
                             />
                           </div>
                           <div>
