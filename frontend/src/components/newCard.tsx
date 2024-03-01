@@ -95,8 +95,8 @@ export default function NewCard({ onClose }: any) {
                         >
 
                         </textarea>
-                        <div className='flex justify-between'>
-                          <div>
+                        <div className='flex flex-col sm:flex-row sm:items-center justify-between'>
+                          <div className="mb-4 md:mb-0">
                             <label 
                               className="block text-gray-700 text-sm font-bold mb-1 mt-2" 
                               htmlFor="Descrição"
@@ -108,12 +108,12 @@ export default function NewCard({ onClose }: any) {
                               onChange={(e) => setFinalDate(e.target?.value)}
                               type="date" 
                               placeholder='Selecione a data de entrega'
-                              className='text-sm border p-2 rounded-lg w-[14rem] '
+                              className='text-sm border p-2 rounded-lg w-[16rem]'
                             />
                           </div>
                           <div>
-                            <p className='text-xs mt-4 mb-1'>Priority</p>
-                            <div className='flex space-x-3'>
+                            <p className='text-xs mb-1'>Priority</p>
+                            <div className=' space-x-3'>
                               <button
                                 className={`px-4 py-1 border rounded-2xl text-xs
                                  border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF] 
