@@ -111,9 +111,9 @@ export default function NewCard({ onClose }: any) {
                               className='text-sm border p-2 rounded-lg w-[16rem]'
                             />
                           </div>
-                          <div>
+                          <div className='mt-4'>
                             <p className='text-xs mb-1'>Priority</p>
-                            <div className=' space-x-3'>
+                            <div className='space-x-3'>
                               <button
                                 className={`px-4 py-1 border rounded-2xl text-xs
                                  border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF] 
