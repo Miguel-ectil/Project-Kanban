@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BiAlarm, BiCheckCircle } from 'react-icons/bi';
-
 interface KanbanCardProps {
   id: string;
   title: string;
