@@ -1,4 +1,3 @@
-// Header.js
 'use client'
 import React, { useState } from 'react';
 import NewCard from '@/components/newCard';
@@ -16,11 +15,11 @@ export default function Header() {
       <Image 
         width={70} height={70} 
         src='/3d_avatar_21.svg' alt={'meu logo'}
-        className='mt-1 mb-1 ml-2'
+        className='mt-1 mb-1 ml-2.5'
       >
       </Image>
       <button
-        className="flex hover:bg-[#aea7f3] bg-[#BFB9FF]  border-[#BFB9FF] rounded-lg cursor-pointer hover:shadow-lg mr-2 text-white px-2 py-2"
+        className="flex hover:bg-[#aea7f3] bg-[#BFB9FF]  border-[#BFB9FF] rounded-lg cursor-pointer hover:shadow-lg mr-2 text-white px-2.5 py-2"
         onClick={handleNewCardClick}
       >
         <strong>+ Novo Card</strong>
