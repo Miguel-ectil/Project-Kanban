@@ -94,7 +94,7 @@ const Home = () => {
     
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-32 px-32">
-      <div className="grid grid-cols-4 gap-8 flex-col sm:flex-row sm:items-baseline">
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 flex-col sm:flex-row sm:items-baseline">
         {Object.entries(columns).map(([columnName, column], colIndex) => (
           <div key={columnName} className="border-[#4E4563] bg-[#dbdbdb] rounded-lg px-2 py-2">
             <strong className="text-black text-xl ml-2">{column.name}</strong>
