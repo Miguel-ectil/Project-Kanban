@@ -3,6 +3,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard'; // Atualize o caminho conforme necessário
 
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+ 
+// import { Button } from "@/components/ui/button"
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu"
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
@@ -91,7 +101,8 @@ const Home = () => {
       });
     }
   };
-    
+  const { setTheme } = useTheme()
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-32 px-32">
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 flex-col sm:flex-row sm:items-baseline">
@@ -116,6 +127,20 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <button className='text-black'>
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </button>
+      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("light")}>
+          Light
+      </button>
+      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("dark")}>
+        Dark
+      </button>
+      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("system")}>
+        System
+      </button>
     </div>
   );
 };
