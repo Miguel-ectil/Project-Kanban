@@ -16,6 +16,7 @@ import { useTheme } from "next-themes"
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
+  const { setTheme } = useTheme()
 
   useEffect(() => {
     const getDadosKanban = async () => {
@@ -101,7 +102,6 @@ const Home = () => {
       });
     }
   };
-  const { setTheme } = useTheme()
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-32 px-32">
@@ -127,20 +127,26 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <button className='text-black'>
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </button>
-      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("light")}>
+      <div className=''>
+      <button
+        className="fixed bottom-5 right-12 p-4 text-black"
+        onClick={() => setTheme("dark")}
+        style={{ zIndex: 999 }} // Define uma camada superior para garantir que o botão fique sobreposta a outros elementos
+      >
+        <Sun className="h-[2.2rem] w-[2.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-[2rem] w-[2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <span className="sr-only">Toggle theme</span>
+      </button>
+      <button className='text-black border p-2 rounded-lg fixed bottom-17 right-14' onClick={() => setTheme("light")}>
           Light
       </button>
-      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("dark")}>
+      </div>
+      {/* <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("dark")}>
         Dark
-      </button>
-      <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("system")}>
+      </button> */}
+      {/* <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("system")}>
         System
-      </button>
+      </button> */}
     </div>
   );
 };
