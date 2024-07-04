@@ -12,7 +12,7 @@ export default function NewCard({ onClose }: any) {
   const  [finalDate, setFinalDate] = useState("")
   const [priority, setPriority] = useState("")
 
-  const priorityValue = (value: any) => {
+  const priorityValue = (value: string) => {
     setPriority(value)
   }
 
@@ -78,6 +78,7 @@ export default function NewCard({ onClose }: any) {
                           value={titleTask}
                           onChange={(e) => setTitleTask(e.target?.value)}
                           type="text"
+                          required
                           placeholder='Digite aqui o titulo da task'
                           className='border p-2 rounded-lg flex w-full'
                         />
@@ -86,7 +87,8 @@ export default function NewCard({ onClose }: any) {
                         </label>
                         <textarea 
                           name="Descrição"
-                          id=""
+                          id="Descrição"
+                          aria-required
                           value={description}
                           onChange={(e) => setDescription(e.target?.value)}
                           className='border p-2 rounded-lg w-full'
@@ -106,7 +108,8 @@ export default function NewCard({ onClose }: any) {
                             <input 
                               value={finalDate}
                               onChange={(e) => setFinalDate(e.target?.value)}
-                              type="date" 
+                              type="date"
+                              required 
                               placeholder='Selecione a data de entrega'
                               className='text-sm border p-2 rounded-lg w-[16rem]'
                             />
