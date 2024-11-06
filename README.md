@@ -1,4 +1,4 @@
-# Projeto Kanban
+# TODO List - Gerenciador de Tarefas 📝
 
 Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o gerenciamento de tarefas em equipes. Ele permite que os usuários visualizem, criem, atualizem e movam tarefas em diferentes colunas de um quadro Kanban, proporcionando uma visão clara do fluxo de trabalho.
 
