@@ -55,7 +55,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.1}
       onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
-      className="border-[#4E4563] bg-[#4E4563] text-white rounded-lg px-4 py-2 m-2 overflow-hidden cursor-grab"
+      className="border-[#4E4563] bg-[#FFFFFF] text-black rounded-lg px-4 py-2 m-2 overflow-hidden cursor-grab"
     >
       <div>
         <h2 className="text-lg font-bold mb-2">{title}</h2>
