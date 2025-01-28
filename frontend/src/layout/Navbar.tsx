@@ -11,7 +11,7 @@ export default function Header() {
   };
 
   return (
-    <div className='fixed flex w-full items-center justify-between bg-gradient-to-t from-transparent bg-[#48409E]'>
+    <div className='fixed flex w-full items-center justify-between bg-gradient-to-t from-transparent bg-[#48409E] px-4'>
       <Image 
         width={70} height={70} 
         src='/3d_avatar_21.svg' alt={'meu logo'}

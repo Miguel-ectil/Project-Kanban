@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         
         <div className="flex flex-1">
           <Sidebar />
-          <main className="flex-1 px-4 bg-[#e3e3f0] overflow-auto">
+          <main className="flex-1 px-5 bg-[#e3e3f0] overflow-auto">
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
