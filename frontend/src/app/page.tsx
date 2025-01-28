@@ -3,20 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard'; // Atualize o caminho conforme necessário
 
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
- 
-// import { Button } from "@/components/ui/button"
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
-
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
-  const { setTheme } = useTheme()
 
   useEffect(() => {
     const getDadosKanban = async () => {
@@ -32,7 +20,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // Distribui os itens nas colunas apropriadas com base no status
     const distribuirItensNasColunas = () => {
       const colunasAtualizadas: any = {};
       colunasAtualizadas['toDo'] = { name: 'To do', items: [] };
@@ -73,31 +60,30 @@ const Home = () => {
   });
 
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
-    // Verificar se o card foi arrastado horizontalmente para além de um limite mínimo
     if (Math.abs(dragDistance) > 100) {
       setColumns((prevColumns: any) => {
         const updatedColumns = { ...prevColumns };
         const sourceColumn = updatedColumns[Object.keys(updatedColumns)[columnIndex]];
         const sourceItems = [...sourceColumn.items];
         const [movedCard] = sourceItems.splice(index, 1);
-  
+
         let destColumnIndex = columnIndex;
         destColumnIndex = (columnIndex + Math.sign(dragDistance) + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
         const destColumnName = Object.keys(updatedColumns)[destColumnIndex];
-  
+
         if (movedCard) {
           const destColumn = updatedColumns[destColumnName];
           const isDuplicate = destColumn.items.some((item: any) => item.id === id);
-  
+
           if (!isDuplicate) {
             const updatedSourceColumn = { ...sourceColumn, items: sourceItems };
             const updatedDestColumn = { ...destColumn, items: [...destColumn.items, movedCard] };
-  
+
             updatedColumns[Object.keys(updatedColumns)[columnIndex]] = updatedSourceColumn;
             updatedColumns[destColumnName] = updatedDestColumn;
           }
         }
-  
+
         return updatedColumns;
       });
     }
@@ -107,7 +93,7 @@ const Home = () => {
     <div className="flex min-h-screen flex-col items-center justify-between py-32 px-32">
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 flex-col sm:flex-row sm:items-baseline">
         {Object.entries(columns).map(([columnName, column], colIndex) => (
-          <div key={columnName} className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2"> {/*border-[#4E4563] bg-[#dbdbdb] */}
+          <div key={columnName} className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2">
             <strong className="text-black text-xl ml-2">{column.name}</strong>
             <div>
               {column.items.map((card: any, index: any) => (
@@ -127,26 +113,6 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <div className=''>
-      <button
-        className="fixed bottom-5 right-12 p-4 text-black"
-        onClick={() => setTheme("dark")}
-        style={{ zIndex: 999 }} // Define uma camada superior para garantir que o botão fique sobreposta a outros elementos
-      >
-        <Sun className="h-[2.2rem] w-[2.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[2rem] w-[2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span className="sr-only">Toggle theme</span>
-      </button>
-      <button className='text-black border p-2 rounded-lg fixed bottom-17 right-14' onClick={() => setTheme("light")}>
-          Light
-      </button>
-      </div>
-      {/* <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("dark")}>
-        Dark
-      </button> */}
-      {/* <button className='text-black border p-2 rounded-lg' onClick={() => setTheme("system")}>
-        System
-      </button> */}
     </div>
   );
 };
