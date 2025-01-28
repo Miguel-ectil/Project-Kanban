@@ -4,7 +4,7 @@ import { Home, ClipboardList, Settings, LogOut } from "lucide-react";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 bg-gray-800 text-white h-full flex flex-col">
+    <div className="hidden md:flex md:w-64 bg-gray-800 text-white h-full flex-col">
       {/* Logo */}
       <div className="p-4 text-2xl font-bold border-b border-gray-700">
         Kanban Project
