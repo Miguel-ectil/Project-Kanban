@@ -3,6 +3,8 @@ import React from 'react';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/layout/Navbar";
+import Sidebar from "@/layout/Sidebar";
+
 import { ThemeProvider } from 'next-themes';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,16 +17,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} h-screen flex flex-col`}>
         <Header />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        
+        <div className="flex flex-1">
+          <Sidebar />
+          <main className="flex-1 px-5 bg-[#e3e3f0] overflow-auto">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </main>
+        </div>
       </body>
     </html>
   );
