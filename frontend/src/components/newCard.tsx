@@ -10,24 +10,39 @@ export default function NewCard({ onClose }: any) {
   const [titleTask, setTitleTask] = useState("")
   const [description, setDescription] = useState("")
   const [finalDate, setFinalDate] = useState("")
-  const [priority, setPriority] = useState("")
+  const [priority, setPriority] = useState("LOW")
+  const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 
   const priorityValue = (value: string) => {
     setPriority(value)
   }
 
+  const validateForm = () => {
+    let newErrors = { title: "", description: "", finalDate: "" };
+    
+    if (!titleTask.trim()) newErrors.title = "O título é obrigatório.";
+    if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
+    if (!finalDate) newErrors.finalDate = "A data final é obrigatória.";
+  
+    setErrors(newErrors);
+  
+    return Object.values(newErrors).every((error) => error === "");
+  };
+
   const postCrateTask = async () => {
     try {
-      const data = {
-        title: titleTask,
-        description: description,
-        finalDate: finalDate,
-        priority: priority
-      };
-      const response = await axios.post('http://localhost:4000/create-task', data);
+      if (validateForm()) {
+        const data = {
+          title: titleTask,
+          description: description,
+          finalDate: finalDate,
+          priority: priority
+        };
+        const response = await axios.post('http://localhost:4000/create-task', data);
       
-      console.log('Tarefa criada com sucesso:', response.data);
-    } catch (error: string) {
+        console.log('Tarefa criada com sucesso:', response.data);
+      }
+    } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)
     }
   }
@@ -71,19 +86,21 @@ export default function NewCard({ onClose }: any) {
                         New Card
                       </Dialog.Title>
                       <div className="mt-6">
-                        <label className="block text-gray-700 text-xs font-bold mb-1" htmlFor="username">
-                          Task title
+                        <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="username">
+                          Título da task
                         </label>
                         <input 
                           value={titleTask}
                           onChange={(e) => setTitleTask(e.target?.value)}
                           type="text"
                           required
-                          placeholder='Digite aqui o titulo da task'
+                          placeholder='Digite aqui o título da task'
                           className='border p-2 rounded-lg flex w-full text-black bg-white'
                         />
-                        <label className="block text-gray-700 text-xs font-bold mb-1 mt-2" htmlFor="Descrição">
-                          Description
+                        {errors.title && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.title}</p>}
+
+                        <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
+                          Descrição
                         </label>
                         <textarea 
                           name="Descrição"
@@ -95,15 +112,16 @@ export default function NewCard({ onClose }: any) {
                           placeholder='Digite a descrição'
                           // cols="46" rows="2"
                         >
-
                         </textarea>
+                        {errors.description && <p className="text-red-500 text-xs ml-1">{errors.description}</p>}
+
                         <div className='flex flex-col sm:flex-row sm:items-center justify-between'>
                           <div className="mb-4 md:mb-0">
                             <label 
                               className="block text-gray-700 text-sm font-bold mb-1 mt-2" 
                               htmlFor="Descrição"
                             >
-                              Final date
+                              Data final 
                             </label>
                             <div className="relative w-[16rem]">
                             <input
@@ -119,9 +137,11 @@ export default function NewCard({ onClose }: any) {
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
                             />
                           </div>
+                          {errors.finalDate && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
+
                           </div>
                           <div className='mt-4'>
-                            <p className='text-xs mb-1'>Priority</p>
+                            <p className='text-xs text-black mb-1'>Priority</p>
                             <div className='space-x-3'>
                               <button
                                 type='button'
@@ -163,15 +183,16 @@ export default function NewCard({ onClose }: any) {
                     className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
                     onClick={postCrateTask} 
                   >
-                    CREATE
+                    CRIAR
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-3xl px-8 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border border-red-600"
+                    className="mt-3 inline-flex w-full justify-center rounded-3xl px-8 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border 
+                    hover:bg-red-100 border-red-600"
                     onClick={onClose} // Chame a função onClose ao clicar no botão "Cancelar"
                     ref={cancelButtonRef}
                   >
-                    CANCEL
+                    CANCELAR
                   </button>
                 </div>
               </Dialog.Panel>
