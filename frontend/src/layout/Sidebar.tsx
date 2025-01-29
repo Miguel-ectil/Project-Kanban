@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { name: "Quadro", href: "/", icon: "/icons/ci_dashboard-02.svg" },
-    // { name: "Tarefas", href: "/tarefas", icon: <ClipboardList /> },
+    // { name: "Tarefas", href: "/tarefas", icon: "/icons/clarity_timeline-line.svg" },
     // { name: "Configurações", href: "/configuracoes", icon: <Settings /> },
   ];
 
@@ -42,7 +42,7 @@ const Sidebar = () => {
       </nav>
 
       <div className="p-3 border-t border-gray-700">
-        <button className="flex items-center justify-center gap-2 w-full hover:bg-gray-700 rounded-lg cursor-pointer">
+        <button className="flex items-center justify-center gap-2 w-full rounded-lg cursor-pointer"> {/*hover:bg-gray-700*/}
           <span><strong>Ectil</strong></span>
         </button>
       </div>

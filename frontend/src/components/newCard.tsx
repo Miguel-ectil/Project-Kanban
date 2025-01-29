@@ -114,12 +114,11 @@ export default function NewCard({ onClose }: any) {
                               className="text-sm text-black border p-2 rounded-lg w-full bg-white px-2.5 appearance-none"
                             />
                             <img
-                              src="/icons/Vector.svg" // Substitua pelo caminho do seu ícone
+                              src="/icons/Vector.svg"
                               alt="Ícone de calendário"
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
                             />
                           </div>
-                            {/* <input type="date" id="birthday" name="birthday"></input> */}
                           </div>
                           <div className='mt-4'>
                             <p className='text-xs mb-1'>Priority</p>
