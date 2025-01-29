@@ -11,22 +11,37 @@ export default function NewCard({ onClose }: any) {
   const [description, setDescription] = useState("")
   const [finalDate, setFinalDate] = useState("")
   const [priority, setPriority] = useState("")
+  const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 
   const priorityValue = (value: string) => {
     setPriority(value)
   }
 
+  const validateForm = () => {
+    let newErrors = { title: "", description: "", finalDate: "" };
+    
+    if (!titleTask.trim()) newErrors.title = "O título é obrigatório.";
+    if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
+    if (!finalDate) newErrors.finalDate = "A data final é obrigatória.";
+  
+    setErrors(newErrors);
+  
+    return Object.values(newErrors).every((error) => error === "");
+  };
+
   const postCrateTask = async () => {
     try {
-      const data = {
-        title: titleTask,
-        description: description,
-        finalDate: finalDate,
-        priority: priority
-      };
-      const response = await axios.post('http://localhost:4000/create-task', data);
+      if (validateForm()) {
+        const data = {
+          title: titleTask,
+          description: description,
+          finalDate: finalDate,
+          priority: priority
+        };
+        const response = await axios.post('http://localhost:4000/create-task', data);
       
-      console.log('Tarefa criada com sucesso:', response.data);
+        console.log('Tarefa criada com sucesso:', response.data);
+      }
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)
     }
@@ -82,6 +97,8 @@ export default function NewCard({ onClose }: any) {
                           placeholder='Digite aqui o título da task'
                           className='border p-2 rounded-lg flex w-full text-black bg-white'
                         />
+                        {errors.title && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.title}</p>}
+
                         <label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="Descrição">
                           Descrição
                         </label>
@@ -96,6 +113,8 @@ export default function NewCard({ onClose }: any) {
                           // cols="46" rows="2"
                         >
                         </textarea>
+                        {errors.description && <p className="text-red-500 text-xs ml-1">{errors.description}</p>}
+
                         <div className='flex flex-col sm:flex-row sm:items-center justify-between'>
                           <div className="mb-4 md:mb-0">
                             <label 
@@ -118,6 +137,8 @@ export default function NewCard({ onClose }: any) {
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
                             />
                           </div>
+                          {errors.description && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
+
                           </div>
                           <div className='mt-4'>
                             <p className='text-xs text-black mb-1'>Priority</p>
