@@ -15,7 +15,7 @@ export default function Header() {
       <div></div>
       
       <button
-        className="flex hover:bg-[#aea7f3] bg-[#]  border-[#BFB9FF] rounded-lg cursor-pointer hover:shadow-lg mr-2 text-white px-2.5 py-2"
+        className="flex hover:bg-[#58548abb] bg-[#726ea8bb]  border-[#BFB9FF] rounded-lg cursor-pointer hover:shadow-lg mr-2 text-white px-2.5 py-2"
         onClick={handleNewCardClick}
       >
         <strong>+ Novo Card</strong>
