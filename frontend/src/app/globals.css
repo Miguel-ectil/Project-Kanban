@@ -2,18 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
-  display: flex;
-}
-
-.sidebar {
-  flex-basis: 200px;
-}
-
-.main-content {
-  flex-grow: 1;
-}
-/* 
 body {
-  background-color: #f4f3ff;
-} */
+  background-color: #e3e3f0;
+}
+

@@ -7,9 +7,9 @@ import axios from 'axios';
 
 export default function NewCard({ onClose }: any) {
   const cancelButtonRef = useRef(null);
-  const  [titleTask, setTitleTask] = useState("")
-  const  [description, setDescription] = useState("")
-  const  [finalDate, setFinalDate] = useState("")
+  const [titleTask, setTitleTask] = useState("")
+  const [description, setDescription] = useState("")
+  const [finalDate, setFinalDate] = useState("")
   const [priority, setPriority] = useState("")
 
   const priorityValue = (value: string) => {
@@ -49,7 +49,7 @@ export default function NewCard({ onClose }: any) {
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -80,7 +80,7 @@ export default function NewCard({ onClose }: any) {
                           type="text"
                           required
                           placeholder='Digite aqui o titulo da task'
-                          className='border p-2 rounded-lg flex w-full'
+                          className='border p-2 rounded-lg flex w-full text-black bg-white'
                         />
                         <label className="block text-gray-700 text-xs font-bold mb-1 mt-2" htmlFor="Descrição">
                           Description
@@ -91,7 +91,7 @@ export default function NewCard({ onClose }: any) {
                           aria-required
                           value={description}
                           onChange={(e) => setDescription(e.target?.value)}
-                          className='border p-2 rounded-lg w-full'
+                          className='border p-2 rounded-lg w-full text-black bg-white'
                           placeholder='Digite a descrição'
                           // cols="46" rows="2"
                         >
@@ -105,14 +105,21 @@ export default function NewCard({ onClose }: any) {
                             >
                               Final date
                             </label>
-                            <input 
+                            <div className="relative w-[16rem]">
+                            <input
                               value={finalDate}
                               onChange={(e) => setFinalDate(e.target?.value)}
                               type="date"
-                              required 
-                              placeholder='Selecione a data de entrega'
-                              className='text-sm border p-2 rounded-lg w-[16rem]'
+                              required
+                              className="text-sm text-black border p-2 rounded-lg w-full bg-white px-2.5 appearance-none"
                             />
+                            <img
+                              src="/icons/Vector.svg" // Substitua pelo caminho do seu ícone
+                              alt="Ícone de calendário"
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
+                            />
+                          </div>
+                            {/* <input type="date" id="birthday" name="birthday"></input> */}
                           </div>
                           <div className='mt-4'>
                             <p className='text-xs mb-1'>Priority</p>
