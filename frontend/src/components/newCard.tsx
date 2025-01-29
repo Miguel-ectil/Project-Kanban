@@ -10,7 +10,7 @@ export default function NewCard({ onClose }: any) {
   const [titleTask, setTitleTask] = useState("")
   const [description, setDescription] = useState("")
   const [finalDate, setFinalDate] = useState("")
-  const [priority, setPriority] = useState("")
+  const [priority, setPriority] = useState("LOW")
   const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 
   const priorityValue = (value: string) => {
@@ -137,7 +137,7 @@ export default function NewCard({ onClose }: any) {
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
                             />
                           </div>
-                          {errors.description && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
+                          {errors.finalDate && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
 
                           </div>
                           <div className='mt-4'>
