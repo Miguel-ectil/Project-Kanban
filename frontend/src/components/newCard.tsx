@@ -11,6 +11,7 @@ export default function NewCard({ onClose }: any) {
   const [description, setDescription] = useState("")
   const [finalDate, setFinalDate] = useState("")
   const [priority, setPriority] = useState("LOW")
+  const [status, setStatus] = useState("pendente")
   const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 
   const priorityValue = (value: string) => {
@@ -36,11 +37,13 @@ export default function NewCard({ onClose }: any) {
           title: titleTask,
           description: description,
           finalDate: finalDate,
-          priority: priority
+          priority: priority,
         };
-        const response = await axios.post('http://localhost:4000/create-task', data);
+        const response = await axios.post('http://localhost:4000/api/create-task', data);
       
         console.log('Tarefa criada com sucesso:', response.data);
+        onClose();
+        window.location.reload();
       }
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)

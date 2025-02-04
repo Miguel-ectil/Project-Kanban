@@ -9,36 +9,40 @@ const Home = () => {
   useEffect(() => {
     const getDadosKanban = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/data-kanban');
-        setDadosKanban(response.data);
+        const response = await axios.get('http://localhost:4000/api/tasks');
+        
+        if (response.data) {
+          setDadosKanban(response.data);
+        }
       } catch (error: any) {
         console.error('Erro ao obter dados do Kanban:', error.message);
       }
     };
 
     getDadosKanban();
-  }, []);
+  }, []); 
 
   useEffect(() => {
     const distribuirItensNasColunas = () => {
-      const colunasAtualizadas: any = {};
-      colunasAtualizadas['toDo'] = { name: 'To do', items: [] };
-      colunasAtualizadas['doing'] = { name: 'Doing', items: [] };
-      colunasAtualizadas['inProgress'] = { name: 'QA', items: [] };
-      colunasAtualizadas['done'] = { name: 'Done', items: [] };
+      const colunasAtualizadas: any = {
+        toDo: { name: 'Pendente', items: [] },
+        doing: { name: 'Fazendo', items: [] },
+        inProgress: { name: 'Aprovação', items: [] },
+        done: { name: 'Finalizado', items: [] },
+      };
 
       dadosKanban.forEach((item) => {
         switch (item.status) {
-          case 'toDo':
+          case 'pendente':
             colunasAtualizadas['toDo'].items.push(item);
             break;
-          case 'doing':
+          case 'fazendo':
             colunasAtualizadas['doing'].items.push(item);
             break;
-          case 'inProgress':
+          case 'aprovacao':
             colunasAtualizadas['inProgress'].items.push(item);
             break;
-          case 'done':
+          case 'finalizado':
             colunasAtualizadas['done'].items.push(item);
             break;
           default:
@@ -49,14 +53,16 @@ const Home = () => {
       setColumns(colunasAtualizadas);
     };
 
-    distribuirItensNasColunas();
+    if (dadosKanban.length > 0) {
+      distribuirItensNasColunas();
+    }
   }, [dadosKanban]);
 
   const [columns, setColumns] = useState({
-    toDo: { name: 'To do', items: [] },
-    doing: { name: 'Doing', items: [] },
-    inProgress: { name: 'QA', items: [] },
-    done: { name: 'Done', items: [] },
+    toDo: { name: 'Pendente', items: [] },
+    doing: { name: 'Fazendo', items: [] },
+    inProgress: { name: 'Aprovação', items: [] },
+    done: { name: 'Finalizado', items: [] },
   });
 
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
@@ -101,8 +107,8 @@ const Home = () => {
                   key={card.id}
                   id={card.id}
                   title={card.title}
-                  Description={card.Description}
-                  finalDate={card.finalDate}
+                  Description={card.description}
+                  finalDate={card.final_date}  
                   priority={card.priority}
                   index={index}
                   columnIndex={colIndex}
