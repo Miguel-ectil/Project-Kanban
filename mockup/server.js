@@ -1,31 +1,37 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js'; 
+import dadosKanbanRouter from './dadosKanban/dadosKanban.js'; 
+
+dotenv.config();
 
 const app = express();
 const PORT = 4000;
 
-// Middleware para configurar o CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    return res.status(200).json({});
+// Middleware
+app.use(cors()); 
+app.use(bodyParser.json()); // Parse do corpo da requisição como JSON
+
+// Conexão com o Supabase
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+// Definir rotas
+app.use('/api', dadosKanbanRouter);
+
+// Rota para testar a conexão com o Supabase
+app.get('/test', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('tasks').select('*');
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  next();
 });
 
-app.use(bodyParser.json());
-
-// Importar as APIs dos arquivos separados
-const api1Router = require('../mockup/dadosKanban/dadosKanban');
-
-
-
-// Usar as APIs com a URL base desejada
-app.use('', api1Router);
-
+// Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });

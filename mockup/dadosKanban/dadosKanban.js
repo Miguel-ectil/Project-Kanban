@@ -1,87 +1,62 @@
+import express from "express";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 
-const express = require('express');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
+dotenv.config();
 
-const dadosKanban = [
-  {
-    id: "1",
-    title: "Testar Navegadores",
-    Description: "Verificar e garantir a compatibilidade da aplicação em diferentes navegadores.",
-    finalDate: "25/11/2023",
-    priority: "HIGH",
-    status: "toDo"
-  },
-  {
-    id: "2",
-    title: "Atualizar Bibliotecas",
-    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    finalDate: "25/12/2023",
-    priority: "LOW",
-    status: "inProgress"
-  },
-  {
-    id: "3",
-    title: "Atualizar Bibliotecas",
-    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    finalDate: "25/12/2023",
-    priority: "LOW",
-    status: "doing"
-  },
-  {
-    id: "4",
-    title: "Final Project : App development",
-    Description: "Business Web Development.",
-    finalDate: "Finalizado",
-    // priority: "HIGH",
-    status: "done"
-  },
-  {
-    id: "5",
-    title: "Atualizar Bibliotecas",
-    Description: "Manter as libs atualizadas para garantir segurança e aproveitar novos recursos.",
-    finalDate: "25/12/2023",
-    priority: "LOW",
-    status: "toDo"
-  },
-  {
-    id: "6",
-    title: "Implementar Animações",
-    Description: "Adicionar efeitos visuais e transiçõespara melhorar a experiência do usuário..",
-    finalDate: "25/12/2023",
-    priority: "MEDIUM",
-    status: "toDo"
-  },
-];
+const router = express.Router(); // 🟢 Criando um Router
 
-// endpoint retorna dados das tarefas do Kanban
-router.get('/data-kanban', (req, res) => {  
-//   const dadosKanban =  req.params.CupomFiscal
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-  res.status(200).json(dadosKanban);
-})
+// 🟢 Criar uma nova tarefa
+router.post("/create-task", async (req, res) => {
+  const { title, description, finalDate, priority } = req.body;
 
-// endpoint que cria novas tarefas do Kanban
-router.post('/create-task', (req, res) => {  
-    // Verifica se todos os dados necessários foram fornecidos no corpo da requisição
-    const { title, description, finalDate, priority } = req.body;
-    if (!title || !description || !finalDate || !priority) {
-      return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
-    }
-  
-    // Simula a criação da tarefa
-    const newTask = {
-      id: Math.floor(Math.random() * 1000), // Simula a geração de um ID único
-      title: title,
-      description: description,
-      finalDate: finalDate,
-      priority: priority
-    };
-  
-    // Retorna a nova tarefa criada
-    res.status(200).json(newTask);
-  })
+  if (!title || !finalDate) {
+    return res.status(400).json({ error: "Título e data final são obrigatórios" });
+  }
 
-module.exports = router;
+  const { data, error } = await supabase.from("tasks").insert([
+    { title, description, final_date: finalDate, priority }
+  ]);
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.status(201).json({ message: "Tarefa criada!", task: data });
+});
+
+// 🔵 Obter todas as tarefas
+router.get("/tasks", async (_, res) => {
+  const { data, error } = await supabase.from("tasks").select("*");
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.json(data);
+});
+
+// 🟠 Atualizar uma tarefa
+router.put("/update-task/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, description, finalDate, priority } = req.body;
+
+  const { data, error } = await supabase.from("tasks").update({
+    title, description, final_date: finalDate, priority
+  }).eq("id", id);
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.json({ message: "Tarefa atualizada!", task: data });
+});
+
+// 🔴 Excluir uma tarefa
+router.delete("/delete-task/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const { error } = await supabase.from("tasks").delete().eq("id", id);
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.json({ message: "Tarefa excluída!" });
+});
+
+export default router; // 🟢 Agora exportamos o Router
