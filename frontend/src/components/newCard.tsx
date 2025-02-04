@@ -38,11 +38,12 @@ export default function NewCard({ onClose }: any) {
           description: description,
           finalDate: finalDate,
           priority: priority,
-          // status: status
         };
         const response = await axios.post('http://localhost:4000/api/create-task', data);
       
         console.log('Tarefa criada com sucesso:', response.data);
+        onClose();
+        window.location.reload();
       }
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)

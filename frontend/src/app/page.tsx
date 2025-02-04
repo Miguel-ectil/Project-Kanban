@@ -11,10 +11,8 @@ const Home = () => {
       try {
         const response = await axios.get('http://localhost:4000/api/tasks');
         
-        console.log(response.data);  // Log para ver os dados retornados
-
         if (response.data) {
-          setDadosKanban(response.data);  // Aqui, basta definir diretamente como o array de dados
+          setDadosKanban(response.data);
         }
       } catch (error: any) {
         console.error('Erro ao obter dados do Kanban:', error.message);
