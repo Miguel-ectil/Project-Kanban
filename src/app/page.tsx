@@ -23,19 +23,20 @@ const Home = () => {
     done: { name: 'Finalizado', items: [] },
   });
 
-  useEffect(() => {
-    const getDadosKanban = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await axios.get(`${apiUrl}/tasks`);
+  const getDadosKanban = async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const response = await axios.get(`${apiUrl}/tasks`);
 
-        if (response.data) {
-          setDadosKanban(response.data);
-        }
-      } catch (error: any) {
-        console.error('Erro ao obter dados do Kanban:', error.message);
+      if (response.data) {
+        setDadosKanban(response.data);
       }
-    };
+    } catch (error: any) {
+      console.error('Erro ao obter dados do Kanban:', error.message);
+    }
+  };
+
+  useEffect(() => {
 
     getDadosKanban();
   }, []);

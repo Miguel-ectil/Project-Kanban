@@ -71,8 +71,8 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         const response = await axios.put(`${apiUrl}/update-task/${idTask}`, data);
       
         console.log('Tarefa criada com sucesso:', response.data);
-        // onClose();
-        // window.location.reload();
+        onClose();
+        window.location.reload();
       }
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)
