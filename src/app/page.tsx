@@ -10,6 +10,7 @@ const Home = () => {
     const getDadosKanban = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Carrega a URL da API do .env
+        console.log(apiUrl);
         const response = await axios.get(`${apiUrl}/tasks`);
 
         if (response.data) {

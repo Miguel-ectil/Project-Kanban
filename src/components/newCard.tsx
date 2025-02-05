@@ -4,7 +4,6 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
 
-
 export default function NewCard({ onClose }: any) {
   const cancelButtonRef = useRef(null);
   const [titleTask, setTitleTask] = useState("")
@@ -39,7 +38,7 @@ export default function NewCard({ onClose }: any) {
           finalDate: finalDate,
           priority: priority,
         };
-        const response = await axios.post('https://gerenciamento-de-tarefa-nodejs.onrender.com/api/create-task', data);
+        const response = await axios.post('/create-task', data);
       
         console.log('Tarefa criada com sucesso:', response.data);
         onClose();
