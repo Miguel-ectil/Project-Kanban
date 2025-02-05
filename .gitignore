@@ -1,8 +1,6 @@
-# Ignorar arquivos de configuração específicos
-.env
-
 # Ignorar a pasta node_modules
 node_modules/
+.env
 
 # Ignorar a pasta build (ou dist)
 build/

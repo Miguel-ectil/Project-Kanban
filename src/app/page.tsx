@@ -1,16 +1,32 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import KanbanCard from '@/components/KanbanCard'; 
+import KanbanCard from '@/components/KanbanCard';
+import { motion } from 'framer-motion';
+
+type ColumnType = {
+  name: string;
+  items: any[];
+};
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
+  const [columns, setColumns] = useState<{
+    toDo: ColumnType;
+    doing: ColumnType;
+    inProgress: ColumnType;
+    done: ColumnType;
+  }>({
+    toDo: { name: 'Pendente', items: [] },
+    doing: { name: 'Fazendo', items: [] },
+    inProgress: { name: 'Aprovação', items: [] },
+    done: { name: 'Finalizado', items: [] },
+  });
 
   useEffect(() => {
     const getDadosKanban = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Carrega a URL da API do .env
-        console.log(apiUrl);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.get(`${apiUrl}/tasks`);
 
         if (response.data) {
@@ -22,7 +38,7 @@ const Home = () => {
     };
 
     getDadosKanban();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const distribuirItensNasColunas = () => {
@@ -60,67 +76,75 @@ const Home = () => {
     }
   }, [dadosKanban]);
 
-  const [columns, setColumns] = useState({
-    toDo: { name: 'Pendente', items: [] },
-    doing: { name: 'Fazendo', items: [] },
-    inProgress: { name: 'Aprovação', items: [] },
-    done: { name: 'Finalizado', items: [] },
-  });
-
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
-    if (Math.abs(dragDistance) > 100) {
-      setColumns((prevColumns: any) => {
-        const updatedColumns = { ...prevColumns };
-        const sourceColumn = updatedColumns[Object.keys(updatedColumns)[columnIndex]];
-        const sourceItems = [...sourceColumn.items];
-        const [movedCard] = sourceItems.splice(index, 1);
+    console.log("Movendo card", { id, index, columnIndex, dragDistance });
 
-        let destColumnIndex = columnIndex;
-        destColumnIndex = (columnIndex + Math.sign(dragDistance) + Object.keys(updatedColumns).length) % Object.keys(updatedColumns).length;
-        const destColumnName = Object.keys(updatedColumns)[destColumnIndex];
+    const columnNames: ('toDo' | 'doing' | 'inProgress' | 'done')[] = ['toDo', 'doing', 'inProgress', 'done'];
+    const currentColumn = columnNames[columnIndex];
 
-        if (movedCard) {
-          const destColumn = updatedColumns[destColumnName];
-          const isDuplicate = destColumn.items.some((item: any) => item.id === id);
+    // Mover card para a próxima coluna se o arrasto for maior que 100px
+    if (dragDistance > 100 && columnIndex < columnNames.length - 1) {
+      const updatedColumns = { ...columns };
 
-          if (!isDuplicate) {
-            const updatedSourceColumn = { ...sourceColumn, items: sourceItems };
-            const updatedDestColumn = { ...destColumn, items: [...destColumn.items, movedCard] };
+      // Acessando as colunas com as chaves corretas
+      const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
+      updatedColumns[columnNames[columnIndex + 1]].items.push(itemToMove[0]);
 
-            updatedColumns[Object.keys(updatedColumns)[columnIndex]] = updatedSourceColumn;
-            updatedColumns[destColumnName] = updatedDestColumn;
-          }
-        }
+      setColumns(updatedColumns);
+    }
+    // Mover card para a coluna anterior se o arrasto for maior que 100px e não for a primeira coluna
+    else if (dragDistance < -100 && columnIndex > 0) {
+      const updatedColumns = { ...columns };
 
-        return updatedColumns;
-      });
+      // Acessando as colunas com as chaves corretas
+      const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
+      updatedColumns[columnNames[columnIndex - 1]].items.push(itemToMove[0]);
+
+      setColumns(updatedColumns);
     }
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-32">
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8 flex-col sm:flex-row sm:items-baseline">
+      <motion.div
+        className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         {Object.entries(columns).map(([columnName, column], colIndex) => (
-          <div key={columnName} className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2">
+          <motion.div
+            key={columnName}
+            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: colIndex * 0.2 }}
+          >
             <strong className="text-black text-xl ml-2">{column.name}</strong>
             <div>
               {column.items.map((card: any, index: any) => (
-                <KanbanCard
+                <motion.div
                   key={card.id}
-                  id={card.id}
-                  title={card.title}
-                  Description={card.description}
-                  finalDate={card.final_date}  
-                  priority={card.priority}
-                  index={index}
-                  columnIndex={colIndex}
-                  moveCard={moveCard}
-                />
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                >
+                  <KanbanCard
+                    id={card.id}
+                    title={card.title}
+                    Description={card.description}
+                    finalDate={card.final_date}
+                    priority={card.priority}
+                    index={index}
+                    columnIndex={colIndex}
+                    moveCard={moveCard}
+                  />
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
