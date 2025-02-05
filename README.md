@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TODO List - Gerenciador de Tarefas 📝
 
-## Getting Started
+Este projeto é um sistema Kanban desenvolvido com o objetivo de facilitar o gerenciamento de tarefas em equipes. Ele permite que os usuários visualizem, criem, atualizem e movam tarefas em diferentes colunas de um quadro Kanban, proporcionando uma visão clara do fluxo de trabalho.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Visualização das tarefas em diferentes colunas: "To do", "Doing", "QA" e "Done".
+- Criação de novas tarefas.
+- Atualização das tarefas existentes.
+- Movimentação das tarefas entre as colunas.
+- Requisição de dados em outra tela após trazer os dados do Kanban.
+- Mockup do layout do Kanban.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologias Utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend:**
+  - TypeScript/JavaScript: Linguagem de programação para construção da interface do usuário.
+  - React.js/Next.js: Biblioteca JavaScript para construção da interface do usuário.
+  - TailwindCss: Biblioteca de componentes React para criar uma IU consistente e responsiva.
+  - React-icons: Biblioteca de icones
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Backend (API):**
+  - Express: Framework web rápido, flexível e minimalista para construção de APIs com Express.
+  - NodeJs: Linguagem de programação utilizada para desenvolvimento do backend.
+  - PostgreSql: Banco de dados SQL orientado a documentos.
 
-## Learn More
+## Estrutura do Projeto
 
-To learn more about Next.js, take a look at the following resources:
+- `frontend/`: Contém os arquivos do frontend do projeto.
+- `backend/`: Contém os arquivos do backend (API) do projeto.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Instruções de Uso
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone o repositório.
+2. Instale as dependências do frontend e do backend:
+ - cd frontend
+ - npm install
+ - cd ../backend
+ - criar venv (python -m venv nome)
+ - acessar venv no Linux (source venv nome/bin/activate)
+ - pip install -r requirements.txt
 
-## Deploy on Vercel
+3. Inicie o servidor do backend:
+python manage.py runserver
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Inicie o servidor do frontend: npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. Acesse o projeto em `http://localhost:3000`.
+
+## Mockup
+
+Aqui está uma representação visual do layout do Kanban:
+
+[Inserir imagem do mockup aqui]
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
