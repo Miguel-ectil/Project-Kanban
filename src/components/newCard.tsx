@@ -46,7 +46,29 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
           finalDate: date, 
           priority: taskPriority, 
         };
-        const response = await axios.post('/create-task', data);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.post(`${apiUrl}/create-task`, data);
+      
+        console.log('Tarefa criada com sucesso:', response.data);
+        onClose();
+        window.location.reload();
+      }
+    } catch (error: any) {
+      console.log('Erro ao criar nova Tarefa', error.message)
+    }
+  };
+
+  const PutEditTask = async () => {
+    try {
+      if (validateForm()) {
+        const data = {
+          title: title,
+          description: desc,
+          finalDate: date, 
+          priority: taskPriority, 
+        };
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.put(`${apiUrl}/update-task/${idTask}`, data);
       
         console.log('Tarefa criada com sucesso:', response.data);
         onClose();
@@ -184,7 +206,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-3xl bg-[#2BA700] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#41832b] sm:ml-4 sm:w-auto transition hover:scale-90"
-                      // onClick={postEditTask} // Se necessário, adicione a função de edição
+                      onClick={PutEditTask} 
                     >
                       Editar
                     </button>
