@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     const getDadosKanban = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/tasks');
+        const response = await axios.get('https://gerenciamento-de-tarefa-nodejs.onrender.com/api/tasks');
         
         if (response.data) {
           setDadosKanban(response.data);
