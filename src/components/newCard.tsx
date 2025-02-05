@@ -1,42 +1,50 @@
-// NewCard.js
 'use client'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
 
-export default function NewCard({ onClose }: any) {
+interface NewCardProps {
+  onClose: () => void;
+  id?: string;
+  titleTask?: string;
+  description?: string;
+  finalDate?: string;
+  priority?: string;
+}
+export default function NewCard({ onClose, id, titleTask, description, finalDate, priority }: NewCardProps) {
   const cancelButtonRef = useRef(null);
-  const [titleTask, setTitleTask] = useState("")
-  const [description, setDescription] = useState("")
-  const [finalDate, setFinalDate] = useState("")
-  const [priority, setPriority] = useState("LOW")
-  const [status, setStatus] = useState("pendente")
+  const [idTask, setIdTask] = useState(id);
+  const [title, setTitle] = useState(titleTask || ''); 
+  const [desc, setDesc] = useState(description || ''); 
+  const [date, setDate] = useState(finalDate || ''); 
+  const [taskPriority, setTaskPriority] = useState(priority || 'LOW');
+  const [status, setStatus] = useState("pendente");
   const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 
   const priorityValue = (value: string) => {
-    setPriority(value)
-  }
+    setTaskPriority(value); // Alteração aqui para corrigir o estado
+  };
 
   const validateForm = () => {
     let newErrors = { title: "", description: "", finalDate: "" };
     
-    if (!titleTask.trim()) newErrors.title = "O título é obrigatório.";
-    if (!description.trim()) newErrors.description = "A descrição é obrigatória.";
-    if (!finalDate) newErrors.finalDate = "A data final é obrigatória.";
+    if (!title.trim()) newErrors.title = "O título é obrigatório.";
+    if (!desc.trim()) newErrors.description = "A descrição é obrigatória."; 
+    if (!date) newErrors.finalDate = "A data final é obrigatória.";
   
     setErrors(newErrors);
   
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const postCrateTask = async () => {
+  const postCreateTask = async () => {
     try {
       if (validateForm()) {
         const data = {
-          title: titleTask,
-          description: description,
-          finalDate: finalDate,
-          priority: priority,
+          title: title,
+          description: desc,
+          finalDate: date, 
+          priority: taskPriority, 
         };
         const response = await axios.post('/create-task', data);
       
@@ -47,12 +55,11 @@ export default function NewCard({ onClose }: any) {
     } catch (error: any) {
       console.log('Erro ao criar nova Tarefa', error.message)
     }
-  }
+  };
 
   useEffect(() => {
-    // console.log(titleTask, '\n', description, '\n', finalDate)
-    console.log(priority); // Será executado sempre que priority for alterado
-  }, [priority]);
+    console.log(taskPriority); // Será executado sempre que `taskPriority` for alterado
+  }, [taskPriority]);
 
   return (
     <Transition.Root show={true} as={Fragment}>
@@ -92,8 +99,8 @@ export default function NewCard({ onClose }: any) {
                           Título da task
                         </label>
                         <input 
-                          value={titleTask}
-                          onChange={(e) => setTitleTask(e.target?.value)}
+                          value={title}
+                          onChange={(e) => setTitle(e.target?.value)}
                           type="text"
                           required
                           placeholder='Digite aqui o título da task'
@@ -108,13 +115,11 @@ export default function NewCard({ onClose }: any) {
                           name="Descrição"
                           id="Descrição"
                           aria-required
-                          value={description}
-                          onChange={(e) => setDescription(e.target?.value)}
+                          value={desc}
+                          onChange={(e) => setDesc(e.target?.value)}
                           className='border p-2 rounded-lg w-full text-black bg-white'
                           placeholder='Digite a descrição'
-                          // cols="46" rows="2"
-                        >
-                        </textarea>
+                        />
                         {errors.description && <p className="text-red-500 text-xs ml-1">{errors.description}</p>}
 
                         <div className='flex flex-col sm:flex-row sm:items-center justify-between'>
@@ -127,8 +132,8 @@ export default function NewCard({ onClose }: any) {
                             </label>
                             <div className="relative w-[16rem]">
                             <input
-                              value={finalDate}
-                              onChange={(e) => setFinalDate(e.target?.value)}
+                              value={date}
+                              onChange={(e) => setDate(e.target?.value)}
                               type="date"
                               required
                               className="text-sm text-black border p-2 rounded-lg w-full bg-white px-2.5 appearance-none"
@@ -140,7 +145,6 @@ export default function NewCard({ onClose }: any) {
                             />
                           </div>
                           {errors.finalDate && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
-
                           </div>
                           <div className='mt-4'>
                             <p className='text-xs text-black mb-1'>Priority</p>
@@ -149,7 +153,7 @@ export default function NewCard({ onClose }: any) {
                                 type='button'
                                 className={`px-4 py-1 border rounded-2xl text-xs
                                  border-[#FF7979] text-[#FF7979] hover:bg-[#FF7979] hover:text-[#FFFF] 
-                                  ${priority === "HIGH" ? "bg-[#FF7979] text-white" : ""}`
+                                  ${taskPriority === "HIGH" ? "bg-[#FF7979] text-white" : ""}` // Corrigido para `taskPriority`
                                 }
                                 onClick={() => priorityValue("HIGH")}>
                                 HIGH
@@ -158,7 +162,7 @@ export default function NewCard({ onClose }: any) {
                                 type='button'
                                 className={`px-4 py-1 border rounded-2xl text-xs
                                  border-[#FFBA53] text-[#FFBA53] hover:bg-[#FFBA53] hover:text-[#FFFF]
-                                  ${priority === "MEDIUM" ? "bg-[#FFBA53] text-white" : ""}`
+                                  ${taskPriority === "MEDIUM" ? "bg-[#FFBA53] text-white" : ""}` // Corrigido para `taskPriority`
                                 }
                                 onClick={() => priorityValue("MEDIUM")}>
                                 MEDIUM
@@ -167,7 +171,7 @@ export default function NewCard({ onClose }: any) {
                                 type='button'
                                 className={`px-4 py-1 border rounded-2xl text-xs
                                  border-[#2BA700] text-[#2BA700] hover:bg-[#2BA700] hover:text-[#FFFF]
-                                 ${priority === "LOW" ? "bg-[#2BA700] text-white" : ""}`
+                                 ${taskPriority === "LOW" ? "bg-[#2BA700] text-white" : ""}` // Corrigido para `taskPriority`
                                 } 
                                 onClick={() => priorityValue("LOW")}>
                                 LOW
@@ -183,7 +187,7 @@ export default function NewCard({ onClose }: any) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
-                    onClick={postCrateTask} 
+                    onClick={postCreateTask} 
                   >
                     CRIAR
                   </button>
@@ -191,7 +195,7 @@ export default function NewCard({ onClose }: any) {
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-3xl px-8 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border 
                     hover:bg-red-100 border-red-600"
-                    onClick={onClose} // Chame a função onClose ao clicar no botão "Cancelar"
+                    onClick={onClose}
                     ref={cancelButtonRef}
                   >
                     CANCELAR
