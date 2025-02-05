@@ -1,36 +1,15 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignorar arquivos de configuração específicos
+.env
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
+# Ignorar a pasta node_modules
+node_modules/
 
-# testing
-/coverage
+# Ignorar a pasta build (ou dist)
+build/
 
-# next.js
-/.next/
-/out/
+# Ignorar a pasta .next (para projetos Next.js)
+.next/
 
-# production
-/build
-
-# misc
+# Ignorar outros arquivos temporários e de build
 .DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+.vscode/
