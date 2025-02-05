@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BiAlarm, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded } from 'react-icons/bi';
+import { BiAlarm, BiCheckCircle, BiDotsVerticalRounded } from 'react-icons/bi';
 import NewCard from '@/components/newCard';
 
 
@@ -82,15 +82,19 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       className="border-[#4E4563] bg-[#FFFFFF] text-black rounded-lg px-4 py-2.5 m-2 overflow-hidden cursor-grab"
     >
       <div className="relative">
-      <div className="flex justify-between">
-        <h2 className="text-lg font-bold mb-2">{title}</h2>
-        <BiDotsVerticalRounded size={24} onClick={openEditModal} className="cursor-pointer" />
-      </div>
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-bold mb-2">{title}</h2>
+          <BiDotsVerticalRounded 
+            size={24}
+            className="cursor-pointer"
+            onClick={handleMenuClick}
+          />
+        </div>
 
         {showMenu && (
           <div className="absolute top-0 right-0 mt-8 bg-white shadow-lg rounded-lg p-2 w-36">
             <ul>
-              <li className="cursor-pointer text-blue-500 hover:text-blue-700" onClick={handleEdit}>Editar</li>
+              <li className="cursor-pointer text-blue-500 hover:text-blue-700" onClick={openEditModal}>Editar</li>
               <li className="cursor-pointer text-red-500 hover:text-red-700 mt-2" onClick={handleDelete}>Deletar</li>
             </ul>
           </div>
