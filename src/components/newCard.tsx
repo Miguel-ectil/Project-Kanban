@@ -1,4 +1,3 @@
-// NewCard.js
 'use client'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
@@ -15,10 +14,10 @@ interface NewCardProps {
 export default function NewCard({ onClose, id, titleTask, description, finalDate, priority }: NewCardProps) {
   const cancelButtonRef = useRef(null);
   const [idTask, setIdTask] = useState(id);
-  const [title, setTitle] = useState(titleTask || ''); // Alteração aqui para usar o estado correto
-  const [desc, setDesc] = useState(description || ''); // Alteração aqui para usar o estado correto
-  const [date, setDate] = useState(finalDate || ''); // Alteração aqui para usar o estado correto
-  const [taskPriority, setTaskPriority] = useState(priority || 'LOW'); // Alteração aqui para usar o estado correto
+  const [title, setTitle] = useState(titleTask || ''); 
+  const [desc, setDesc] = useState(description || ''); 
+  const [date, setDate] = useState(finalDate || ''); 
+  const [taskPriority, setTaskPriority] = useState(priority || 'LOW');
   const [status, setStatus] = useState("pendente");
   const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
 

@@ -29,12 +29,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMenuClick = () => {
-    setShowMenu(!showMenu); // Alterna entre mostrar e esconder o menu
-  };
-
-  const handleEdit = () => {
-    console.log('Editar card', id);
-    // Implementar lógica de edição
+    setShowMenu(!showMenu);
   };
 
   const handleDelete = () => {
@@ -42,7 +37,6 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
     // Implementar lógica de exclusão
   };
   const openEditModal = () => {
-    // Aqui você pode passar os dados para o modal
     setIsModalOpen(true);
   };
 
