@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import KanbanCard from '@/components/KanbanCard'; // Atualize o caminho conforme necessário
+import KanbanCard from '@/components/KanbanCard'; 
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
@@ -9,8 +9,9 @@ const Home = () => {
   useEffect(() => {
     const getDadosKanban = async () => {
       try {
-        const response = await axios.get('https://gerenciamento-de-tarefa-nodejs.onrender.com/api/tasks');
-        
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL; // Carrega a URL da API do .env
+        const response = await axios.get(`${apiUrl}/tasks`);
+
         if (response.data) {
           setDadosKanban(response.data);
         }
