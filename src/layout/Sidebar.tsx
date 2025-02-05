@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { ClipboardList, Settings } from "lucide-react";
 import Image from "next/image";
 
 const Sidebar = () => {
