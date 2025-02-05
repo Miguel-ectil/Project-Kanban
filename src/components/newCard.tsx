@@ -57,10 +57,6 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
     }
   };
 
-  useEffect(() => {
-    console.log(taskPriority); // Será executado sempre que `taskPriority` for alterado
-  }, [taskPriority]);
-
   return (
     <Transition.Root show={true} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
