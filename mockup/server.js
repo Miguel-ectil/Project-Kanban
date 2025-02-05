@@ -8,7 +8,7 @@ import dadosKanbanRouter from './dadosKanban/dadosKanban.js';
 dotenv.config();
 
 const app = express();
-const PORT = 4000;
+const PORT = 8080;
 
 // Middleware
 app.use(cors()); 
