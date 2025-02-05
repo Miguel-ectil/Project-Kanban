@@ -39,7 +39,7 @@ export default function NewCard({ onClose }: any) {
           finalDate: finalDate,
           priority: priority,
         };
-        const response = await axios.post('http://localhost:4000/api/create-task', data);
+        const response = await axios.post('http://localhost:8080/api/create-task', data);
       
         console.log('Tarefa criada com sucesso:', response.data);
         onClose();
