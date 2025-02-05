@@ -1,13 +1,22 @@
+# next.js
+/.next/
+/out/
+
 # Ignorar a pasta node_modules
 node_modules/
+npm-debug.log*
+
 .env
 
 # Ignorar a pasta build (ou dist)
 build/
 
-# Ignorar a pasta .next (para projetos Next.js)
-.next/
+
+# vercel
+.vercel
 
 # Ignorar outros arquivos temporários e de build
+*.tsbuildinfo
+next-env.d.ts
 .DS_Store
 .vscode/
