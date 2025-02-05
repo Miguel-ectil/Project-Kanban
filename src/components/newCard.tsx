@@ -180,17 +180,28 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-2.5 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto"
-                    onClick={postCreateTask} 
-                  >
-                    CRIAR
-                  </button>
+                  {idTask ? (
+                    <button
+                      type="button"
+                      className="inline-flex w-full justify-center rounded-3xl bg-[#2BA700] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#41832b] sm:ml-4 sm:w-auto transition hover:scale-90"
+                      // onClick={postEditTask} // Se necessário, adicione a função de edição
+                    >
+                      Editar
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="inline-flex w-full justify-center rounded-3xl bg-[#48409E] px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#554cb4] sm:ml-4 sm:w-auto transition hover:scale-90"
+                      onClick={postCreateTask}
+                    >
+                      CRIAR
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-3xl px-8 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset sm:mt-0 sm:w-auto border 
-                    hover:bg-red-100 border-red-600"
+                    hover:bg-red-100 border-red-600 transition hover:scale-90"
                     onClick={onClose}
                     ref={cancelButtonRef}
                   >
