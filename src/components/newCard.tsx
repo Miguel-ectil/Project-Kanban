@@ -46,7 +46,8 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
           finalDate: date, 
           priority: taskPriority, 
         };
-        const response = await axios.post('/create-task', data);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.post(`${apiUrl}/create-task`, data);
       
         console.log('Tarefa criada com sucesso:', response.data);
         onClose();
