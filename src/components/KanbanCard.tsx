@@ -64,11 +64,11 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5, y: -100 }}
+      initial={{ opacity: 0, scale: 0.4, y: -100 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.5, y: -100 }}
-      whileHover={{ scale: 0.94 }}
-      whileTap={{ scale: 1.1 }}
+      whileHover={{ scale: 0.96 }}
+      whileTap={{ scale: 1 }}
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.1}
