@@ -17,13 +17,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} h-screen flex flex-col`}>
+      <body className={`${inter.className} h-screen flex `}>
         <Header />
-        
+        <Sidebar />
         <div className="flex flex-1">
-          <Sidebar />
           <main className="flex-1 px-5 overflow-auto">
-            
               <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
