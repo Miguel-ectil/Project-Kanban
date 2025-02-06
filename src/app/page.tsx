@@ -112,9 +112,11 @@ const Home = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between py-32">
-      <motion.div
-        className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
+<div className="flex min-h-screen flex-col items-center justify-between py-32 w-full">
+<motion.div
+        // className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
+        className="grid w-full  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-8"
+
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -122,7 +124,7 @@ const Home = () => {
         {Object.entries(columns).map(([columnName, column], colIndex) => (
           <motion.div
             key={columnName}
-            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2 w-[350px] min-w-[100px] min-h-[200px]"
+            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-4 py-4 w-full"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1.5, scale: 1 }}
             transition={{ duration: 0.3, delay: colIndex * 0.2 }}
