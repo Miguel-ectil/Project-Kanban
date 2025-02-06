@@ -22,10 +22,10 @@ const Home = () => {
     inProgress: ColumnType;
     done: ColumnType;
   }>({
-    toDo: { name: 'Pendente', items: [] },
+    toDo: { name: 'Fazer', items: [] },
     doing: { name: 'Fazendo', items: [] },
     inProgress: { name: 'Aprovação', items: [] },
-    done: { name: 'Finalizado', items: [] },
+    done: { name: 'Feito', items: [] },
   });
 
   const getDadosKanban = async () => {
@@ -51,10 +51,10 @@ const Home = () => {
   useEffect(() => {
     if (dadosKanban.length > 0) {
       const colunasAtualizadas: any = {
-        toDo: { name: 'Pendente', items: [] },
+        toDo: { name: 'Fazer', items: [] },
         doing: { name: 'Fazendo', items: [] },
         inProgress: { name: 'Aprovação', items: [] },
-        done: { name: 'Finalizado', items: [] },
+        done: { name: 'Feito', items: [] },
       };
 
       dadosKanban.forEach((item) => {
