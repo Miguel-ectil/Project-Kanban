@@ -25,7 +25,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
   const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
 
   const priorityValue = (value: string) => {
-    setTaskPriority(value); // Alteração aqui para corrigir o estado
+    setTaskPriority(value);
   };
 
   const validateForm = () => {
@@ -57,7 +57,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
           
           setTimeout(() => {
             window.location.reload();
-          }, 5000);
+          }, 2000);
       }
     } catch (error: any) {
       setMessage('Houve alguma falha ao tentar cadastrar a tarefa!');
@@ -65,10 +65,10 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
     } finally {
       setTimeout(() => {
         onClose();
-      }, 4000)
+      }, 1000)
     }
   };
-
+  
   const PutEditTask = async () => {
     try {
       if (validateForm()) {
@@ -81,17 +81,16 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.put(`${apiUrl}/update-task/${idTask}`, data);
       
-        if (response.data) {
-          setMessage('Tarefa atualizada com sucesso!');
-          setMessageType('success')
-          setTimeout(() => {
-            window.location.reload();
-          }, 5000);
-        }
+        // setMessage('Tarefa atualizada com sucesso!');
+        // setMessageType('success')
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
       }
     } catch (error: any) {
-      setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
-      setMessageType('error')
+      console.log(error)
+      // setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
+      // setMessageType('error')
     } finally {
       setTimeout(() => {
         onClose();
@@ -103,7 +102,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
     <>
     {message && <Message type={messageType} message={message} />}
     <Transition.Root show={true} as={Fragment}>
-      <Dialog as="div" className=" z-10" onClose={onClose}>
+      <Dialog as="div" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -116,7 +115,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
           <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="fixed inset-0 z-30 w-screen overflow-y-auto">
           <div className="flex h-full items-center justify-center text-center sm:p-4">
             <Transition.Child
               as={Fragment}
