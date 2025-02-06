@@ -2,6 +2,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
+import Message from '@/context/ToastContext';
 
 interface NewCardProps {
   onClose: () => void;
@@ -20,6 +21,8 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
   const [taskPriority, setTaskPriority] = useState(priority || 'LOW');
   const [status, setStatus] = useState("pendente");
   const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
+  const [message, setMessage] = useState<string>('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
 
   const priorityValue = (value: string) => {
     setTaskPriority(value); // Alteração aqui para corrigir o estado
@@ -48,13 +51,17 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         };
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(`${apiUrl}/create-task`, data);
-      
-        console.log('Tarefa criada com sucesso:', response.data);
-        onClose();
-        window.location.reload();
+        
+        if (response.data) {
+          onClose();
+          setMessage('Tarefa cadastrada com sucesso!');
+          setMessageType('success')
+          window.location.reload();
+        }
       }
     } catch (error: any) {
-      console.log('Erro ao criar nova Tarefa', error.message)
+      setMessage('Houve alguma falha ao tentar cadastrar a tarefa!');
+      setMessageType('error')
     }
   };
 
@@ -70,16 +77,22 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.put(`${apiUrl}/update-task/${idTask}`, data);
       
-        console.log('Tarefa criada com sucesso:', response.data);
-        onClose();
-        window.location.reload();
+        if (response.data) {
+          setMessage('Tarefa atualizada com sucesso!');
+          setMessageType('success')
+          onClose();
+          window.location.reload();
+        }
       }
     } catch (error: any) {
-      console.log('Erro ao criar nova Tarefa', error.message)
+      setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
+      setMessageType('error')
     }
   };
 
   return (
+    <>
+    {message && <Message type={messageType} message={message} />}
     <Transition.Root show={true} as={Fragment}>
       <Dialog as="div" className=" z-10" onClose={onClose}>
         <Transition.Child
@@ -236,5 +249,6 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         </div>
       </Dialog>
     </Transition.Root>
+    </>
   );
 }

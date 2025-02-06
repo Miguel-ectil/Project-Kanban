@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard';
 import { motion } from 'framer-motion';
+import Message from '@/context/ToastContext';
 
 type ColumnType = {
   name: string;
@@ -11,7 +12,10 @@ type ColumnType = {
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true); // Estado de loading
+  const [loading, setLoading] = useState(true); 
+  const [message, setMessage] = useState<string>('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
+
   const [columns, setColumns] = useState<{
     toDo: ColumnType;
     doing: ColumnType;
@@ -33,7 +37,8 @@ const Home = () => {
         setDadosKanban(response.data);
       }
     } catch (error: any) {
-      console.error('Erro ao obter dados do Kanban:', error.message);
+      setMessage('Houve uma falha ao tentar trazer as tarefas!');
+      setMessageType('error')
     } finally {
       setLoading(false); 
     }
@@ -112,9 +117,12 @@ const Home = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between py-32">
-      <motion.div
-        className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
+    <div className="flex min-h-screen flex-col items-center justify-between py-32 w-full">
+      {message && <Message type={messageType} message={message} />}
+    <motion.div
+        // className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
+        className="grid w-full  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-8"
+
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -122,7 +130,7 @@ const Home = () => {
         {Object.entries(columns).map(([columnName, column], colIndex) => (
           <motion.div
             key={columnName}
-            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2 w-[350px] min-w-[100px] min-h-[200px]"
+            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-4 py-4 w-full"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1.5, scale: 1 }}
             transition={{ duration: 0.3, delay: colIndex * 0.2 }}
