@@ -38,14 +38,13 @@ const Home = () => {
           setMessageType("info");
         } else {
           setDadosKanban(response.data);
+          setLoading(false)
           setMessage(""); 
         }
     } catch (error: any) {
       setMessage("Houve uma falha ao tentar trazer as tarefas!");
       setMessageType("error");
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
