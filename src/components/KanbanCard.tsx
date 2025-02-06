@@ -122,10 +122,10 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
           </div>
 
           {showMenu && (
-            <div className="absolute top-0 right-0 mt-8 bg-white shadow-lg rounded-lg p-2 w-36">
+            <div className="absolute top-0 right-0 mt-8 bg-gray-200 shadow-lg rounded-lg p-2 w-36">
               <ul>
-                <li className="cursor-pointer text-blue-500 hover:text-blue-700" onClick={openEditModal}>Editar</li>
-                <li className="cursor-pointer text-red-500 hover:text-red-700 mt-2" onClick={() => setShowConfirmation(true)}>Deletar</li>
+                <li className="cursor-pointer text-blue-500 hover:text-white hover:bg-blue-600 border rounded-md px-2" onClick={openEditModal}>Editar</li>
+                <li className="cursor-pointer text-red-500 hover:text-white hover:bg-red-600 mt-2 border rounded-md px-2" onClick={() => setShowConfirmation(true)}>Deletar</li>
               </ul>
             </div>
           )}
