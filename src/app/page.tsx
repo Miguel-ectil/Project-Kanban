@@ -32,15 +32,19 @@ const Home = () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       const response = await axios.get(`${apiUrl}/tasks`);
-
-      if (response.data) {
-        setDadosKanban(response.data);
-      }
+  
+        if (response.data.length === 0) {
+          setMessage("Nenhuma tarefa encontarda.\n por favor comece cadastrando uma tarefa.");
+          setMessageType("info");
+        } else {
+          setDadosKanban(response.data);
+          setMessage(""); 
+        }
     } catch (error: any) {
-      setMessage('Houve uma falha ao tentar trazer as tarefas!');
-      setMessageType('error')
+      setMessage("Houve uma falha ao tentar trazer as tarefas!");
+      setMessageType("error");
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
