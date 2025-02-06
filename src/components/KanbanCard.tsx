@@ -91,7 +91,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       {showConfirmation && (
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
           <div className="bg-gray-200 p-4 rounded-lg text-center text-black w-1/3">
-            <p className="text-lg mb-4">Tem certeza que deseja excluir esta tarefa?</p>
+            <p className="text-xl mb-4"> <strong>Tem certeza que deseja excluir esta tarefa?</strong></p>
             <div className="flex justify-center gap-4">
               <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-1.5 rounded-lg w-24">Sim</button>
               <button onClick={cancelDelete} className="bg-gray-500 text-white px-4 py-1.5 rounded-lg">Cancelar</button>
@@ -109,7 +109,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.1}
         onDragEnd={(event, info) => moveCard({ id, index, columnIndex, dragDistance: info.offset.x })}
-        className="border-[#4E4563] bg-[#FFFFFF] text-black rounded-lg px-4 py-2.5 m-2 overflow-hidden cursor-grab"
+        className="border-[#4E4563] bg-[#FFFFFF] text-black rounded-lg px-4 py-3.5 m-2 overflow-hidden cursor-grab"
       >
         <div className="relative">
           <div className="flex justify-between items-center">
@@ -122,10 +122,10 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
           </div>
 
           {showMenu && (
-            <div className="absolute top-0 right-0 mt-8 bg-gray-200 shadow-lg rounded-lg p-2 w-36">
+            <div className="absolute top-0 right-0 mt-8 bg-gray-200 shadow-lg rounded-lg p-1 w-36">
               <ul>
-                <li className="cursor-pointer text-blue-500 hover:text-white hover:bg-blue-600 border rounded-md px-2" onClick={openEditModal}>Editar</li>
-                <li className="cursor-pointer text-red-500 hover:text-white hover:bg-red-600 mt-2 border rounded-md px-2" onClick={() => setShowConfirmation(true)}>Deletar</li>
+                <li className="cursor-pointer text-blue-500 hover:text-white hover:bg-[#4379dde0] border rounded-md px-2 py-0.5" onClick={openEditModal}>Editar</li>
+                <li className="cursor-pointer text-red-500 hover:text-white hover:bg-[#d44242d3] border rounded-md px-2 py-0.5" onClick={() => setShowConfirmation(true)}>Deletar</li>
               </ul>
             </div>
           )}
