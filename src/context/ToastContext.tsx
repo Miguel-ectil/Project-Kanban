@@ -48,7 +48,7 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
   return (
     isVisible && (
       <div
-        className={`fixed z-50 top-5 left-1/2 transform -translate-x-1/2 w-96 p-5 rounded-lg text-white ${getColor()} shadow-lg`}
+        className={`fixed z-50 top-5 left-1/2 transform -translate-x-1/2 w-96 p-4 rounded-lg text-white ${getColor()} shadow-lg`}
       >
         <div className="flex items-center">
           {getIcon()}

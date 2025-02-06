@@ -1,5 +1,5 @@
 'use client'
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
 import Message from '@/context/ToastContext';
@@ -51,17 +51,21 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         };
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(`${apiUrl}/create-task`, data);
-        
-        if (response.data) {
-          onClose();
+
           setMessage('Tarefa cadastrada com sucesso!');
-          setMessageType('success')
-          window.location.reload();
-        }
+          setMessageType('success');
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
       }
     } catch (error: any) {
       setMessage('Houve alguma falha ao tentar cadastrar a tarefa!');
       setMessageType('error')
+    } finally {
+      setTimeout(() => {
+        onClose();
+      }, 4000)
     }
   };
 
@@ -80,13 +84,18 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         if (response.data) {
           setMessage('Tarefa atualizada com sucesso!');
           setMessageType('success')
-          onClose();
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
         }
       }
     } catch (error: any) {
       setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
       setMessageType('error')
+    } finally {
+      setTimeout(() => {
+        onClose();
+      }, 4000)
     }
   };
 
