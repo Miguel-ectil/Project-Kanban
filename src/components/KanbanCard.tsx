@@ -47,7 +47,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
         setMessageType('success')
         setTimeout(() => {
           window.location.reload();
-        }, 5000);
+        }, 4010);
       }
     } catch (error: any) {
       setShowConfirmation(false);
@@ -61,6 +61,11 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
   
   const openEditModal = () => {
     setIsModalOpen(true);
+    handleMenuClick()
+  };
+  const openDellMessage = () => {
+    setShowConfirmation(true)
+    handleMenuClick()
   };
 
   const renderPriorityBadge = () => {
@@ -125,7 +130,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
             <div className="absolute top-0 right-0 mt-8 bg-gray-200 shadow-lg rounded-lg p-1 w-36">
               <ul>
                 <li className="cursor-pointer text-blue-500 hover:text-white hover:bg-[#4379dde0] border rounded-md px-2 py-0.5" onClick={openEditModal}>Editar</li>
-                <li className="cursor-pointer text-red-500 hover:text-white hover:bg-[#d44242d3] border rounded-md px-2 py-0.5" onClick={() => setShowConfirmation(true)}>Deletar</li>
+                <li className="cursor-pointer text-red-500 hover:text-white hover:bg-[#d44242d3] border rounded-md px-2 py-0.5" onClick={openDellMessage}>Deletar</li>
               </ul>
             </div>
           )}
