@@ -95,7 +95,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       {message && <Message type={messageType} message={message} />}
       {showConfirmation && (
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-gray-200 p-4 rounded-lg text-center text-black w-1/3">
+          <div className="bg-gray-200 p-4 rounded-lg text-center text-black w-1/3 border border-blue-500">
             <p className="text-xl mb-4"> <strong>Tem certeza que deseja excluir esta tarefa?</strong></p>
             <div className="flex justify-center gap-4">
               <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-1.5 rounded-lg w-24">Sim</button>

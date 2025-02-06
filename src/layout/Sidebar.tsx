@@ -13,7 +13,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="hidden md:flex md:w-64 h-screen bg-gray-800 text-white flex-col z-40">
+    <div className="hidden md:flex md:w-64 h-screen bg-gray-800 text-white flex-col z-20">
       {/* Logo */}
       <div className="flex items-center justify-center p-4 text-2xl font-bold border-b border-gray-700">
         TASKBAN

@@ -120,9 +120,7 @@ const Home = () => {
     <div className="flex min-h-screen flex-col items-center justify-between py-24 w-full">
       {message && <Message type={messageType} message={message} />}
       <motion.div
-        // className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
         className="grid w-full  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-8"
-
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

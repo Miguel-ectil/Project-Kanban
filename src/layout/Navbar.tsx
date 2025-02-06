@@ -11,7 +11,7 @@ export default function Header() {
   };
 
   return (
-    <div className='fixed flex w-full items-center justify-between bg-gradient-to-t from-transparent bg-[#48409E] px-4 py-2 z-40'>
+    <div className='fixed flex w-full items-center justify-between bg-gradient-to-t from-transparent bg-[#48409E] px-4 py-2 z-20'>
       <div></div>
       
       <button
