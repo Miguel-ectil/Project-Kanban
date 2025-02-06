@@ -23,14 +23,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex flex-1">
           <Sidebar />
           <main className="flex-1 px-5 overflow-auto">
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
+            
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                {children}
+              </ThemeProvider>
+            
           </main>
         </div>
       </body>

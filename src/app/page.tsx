@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard';
 import { motion } from 'framer-motion';
+import Message from '@/context/ToastContext';
 
 type ColumnType = {
   name: string;
@@ -11,7 +12,10 @@ type ColumnType = {
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true); // Estado de loading
+  const [loading, setLoading] = useState(true); 
+  const [message, setMessage] = useState<string>('');
+  const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
+
   const [columns, setColumns] = useState<{
     toDo: ColumnType;
     doing: ColumnType;
@@ -31,6 +35,8 @@ const Home = () => {
 
       if (response.data) {
         setDadosKanban(response.data);
+        setMessage('Requisição bem-sucedida!');
+        setMessageType('success')
       }
     } catch (error: any) {
       console.error('Erro ao obter dados do Kanban:', error.message);
@@ -112,8 +118,9 @@ const Home = () => {
   };
 
   return (
-<div className="flex min-h-screen flex-col items-center justify-between py-32 w-full">
-<motion.div
+    <div className="flex min-h-screen flex-col items-center justify-between py-32 w-full">
+      {message && <Message type={messageType} message={message} />}
+    <motion.div
         // className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8"
         className="grid w-full  sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-8"
 

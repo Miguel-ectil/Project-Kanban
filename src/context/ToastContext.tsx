@@ -1,59 +1,51 @@
-'use client';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-type ToastType = 'success' | 'error' | 'info' | 'warning';
-
-interface ToastMessage {
-  id: number;
-  text: string;
-  type: ToastType;
+interface MessageProps {
+  type: 'success' | 'error' | 'info';
+  message: string;
 }
 
-interface ToastContextType {
-  showMessage: (text: string, type?: ToastType) => void;
-}
+const Message: React.FC<MessageProps> = ({ type, message }) => {
+  const [isVisible, setIsVisible] = useState(true);
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+  // Define o tempo em segundos para a mensagem desaparecer
+  const autoCloseDuration = 5000; // 5 segundos
 
-export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
-  const [messages, setMessages] = useState<ToastMessage[]>([]);
-
-  const showMessage = (text: string, type: ToastType = 'info') => {
-    const id = Date.now();
-    setMessages((prev) => [...prev, { id, text, type }]);
-
-    setTimeout(() => {
-      setMessages((prev) => prev.filter((msg) => msg.id !== id));
-    }, 3000); // Remove após 3s
+  const getColor = () => {
+    switch (type) {
+      case 'success':
+        return 'bg-green-500';
+      case 'error':
+        return 'bg-red-500';
+      case 'info':
+        return 'bg-blue-500';
+      default:
+        return 'bg-gray-500';
+    }
   };
 
-  return (
-    <ToastContext.Provider value={{ showMessage }}>
-      {children}
+  // Use useEffect para fechar a mensagem automaticamente após o tempo definido
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, autoCloseDuration);
 
-      {/* Container de mensagens */}
-      <div className="fixed top-5 right-5 flex flex-col gap-2 z-50">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`px-4 py-3 text-white rounded-lg shadow-md transition-all ${
-              msg.type === 'success' ? 'bg-green-500' :
-              msg.type === 'error' ? 'bg-red-500' :
-              msg.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
-            }`}
-          >
-            {msg.text}
-          </div>
-        ))}
+    // Limpar o timer caso o componente seja desmontado
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    isVisible && (
+      <div className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-80 p-4 rounded-md text-white ${getColor()}`}>
+        <div className="flex justify-between items-center">
+          <p>{message}</p>
+          <button onClick={() => setIsVisible(false)} className="ml-2 text-white focus:outline-none">
+            &times;
+          </button>
+        </div>
       </div>
-    </ToastContext.Provider>
+    )
   );
 };
 
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-};
+export default Message;

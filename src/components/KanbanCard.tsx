@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { BiAlarm, BiCheckCircle, BiDotsVerticalRounded } from 'react-icons/bi';
-import NewCard from '@/components/newCard';
-
+import NewCard from './newCard';
 
 interface KanbanCardProps {
   id: string;
