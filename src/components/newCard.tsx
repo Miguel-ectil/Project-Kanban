@@ -51,14 +51,17 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         };
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(`${apiUrl}/create-task`, data);
-      
-        setMessage('Requisição bem-sucedida!');
-        setMessageType('success')
-        onClose();
-        window.location.reload();
+        
+        if (response.data) {
+          onClose();
+          setMessage('Tarefa cadastrada com sucesso!');
+          setMessageType('success')
+          window.location.reload();
+        }
       }
     } catch (error: any) {
-      console.log('Erro ao criar nova Tarefa', error.message)
+      setMessage('Houve alguma falha ao tentar cadastrar a tarefa!');
+      setMessageType('error')
     }
   };
 
@@ -74,12 +77,16 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.put(`${apiUrl}/update-task/${idTask}`, data);
       
-        console.log('Tarefa criada com sucesso:', response.data);
-        onClose();
-        window.location.reload();
+        if (response.data) {
+          setMessage('Tarefa atualizada com sucesso!');
+          setMessageType('success')
+          onClose();
+          window.location.reload();
+        }
       }
     } catch (error: any) {
-      console.log('Erro ao criar nova Tarefa', error.message)
+      setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
+      setMessageType('error')
     }
   };
 

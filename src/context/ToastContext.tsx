@@ -8,8 +8,7 @@ interface MessageProps {
 const Message: React.FC<MessageProps> = ({ type, message }) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  // Define o tempo em segundos para a mensagem desaparecer
-  const autoCloseDuration = 5000; // 5 segundos
+  const autoCloseDuration = 4000; // 4 segundos
 
   const getColor = () => {
     switch (type) {
@@ -24,22 +23,25 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
     }
   };
 
-  // Use useEffect para fechar a mensagem automaticamente após o tempo definido
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
     }, autoCloseDuration);
 
-    // Limpar o timer caso o componente seja desmontado
     return () => clearTimeout(timer);
   }, []);
 
   return (
     isVisible && (
-      <div className={`fixed top-5 left-1/2 transform -translate-x-1/2 w-80 p-4 rounded-md text-white ${getColor()}`}>
+      <div
+        className={`fixed z-50 top-5 left-1/2 transform -translate-x-1/2 w-96 p-4 rounded-lg text-white ${getColor()} shadow-lg`}
+      >
         <div className="flex justify-between items-center">
-          <p>{message}</p>
-          <button onClick={() => setIsVisible(false)} className="ml-2 text-white focus:outline-none">
+          <p className="text-lg font-semibold">{message}</p>
+          <button
+            onClick={() => setIsVisible(false)}
+            className="ml-2 text-white focus:outline-none"
+          >
             &times;
           </button>
         </div>

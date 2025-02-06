@@ -35,11 +35,10 @@ const Home = () => {
 
       if (response.data) {
         setDadosKanban(response.data);
-        setMessage('Requisição bem-sucedida!');
-        setMessageType('success')
       }
     } catch (error: any) {
-      console.error('Erro ao obter dados do Kanban:', error.message);
+      setMessage('Houve uma falha ao tentar trazer as tarefas!');
+      setMessageType('error')
     } finally {
       setLoading(false); 
     }
