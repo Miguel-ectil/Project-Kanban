@@ -95,7 +95,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex h-full items-center justify-center text-center sm:p-0">
+          <div className="flex h-full items-center justify-center text-center sm:p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
