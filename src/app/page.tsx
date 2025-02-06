@@ -11,6 +11,7 @@ type ColumnType = {
 
 const Home = () => {
   const [dadosKanban, setDadosKanban] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); // Estado de loading
   const [columns, setColumns] = useState<{
     toDo: ColumnType;
     doing: ColumnType;
@@ -33,16 +34,17 @@ const Home = () => {
       }
     } catch (error: any) {
       console.error('Erro ao obter dados do Kanban:', error.message);
+    } finally {
+      setLoading(false); 
     }
   };
 
   useEffect(() => {
-
     getDadosKanban();
   }, []);
 
   useEffect(() => {
-    const distribuirItensNasColunas = () => {
+    if (dadosKanban.length > 0) {
       const colunasAtualizadas: any = {
         toDo: { name: 'Pendente', items: [] },
         doing: { name: 'Fazendo', items: [] },
@@ -53,16 +55,16 @@ const Home = () => {
       dadosKanban.forEach((item) => {
         switch (item.status) {
           case 'pendente':
-            colunasAtualizadas['toDo'].items.push(item);
+            colunasAtualizadas.toDo.items.push(item);
             break;
           case 'fazendo':
-            colunasAtualizadas['doing'].items.push(item);
+            colunasAtualizadas.doing.items.push(item);
             break;
           case 'aprovacao':
-            colunasAtualizadas['inProgress'].items.push(item);
+            colunasAtualizadas.inProgress.items.push(item);
             break;
           case 'finalizado':
-            colunasAtualizadas['done'].items.push(item);
+            colunasAtualizadas.done.items.push(item);
             break;
           default:
             break;
@@ -70,12 +72,20 @@ const Home = () => {
       });
 
       setColumns(colunasAtualizadas);
-    };
-
-    if (dadosKanban.length > 0) {
-      distribuirItensNasColunas();
     }
   }, [dadosKanban]);
+
+  const renderSkeletons = () => {
+    return Array.from({ length: 3 }).map((_, index) => (
+      <motion.div
+        key={index}
+        className="bg-gray-300 animate-pulse rounded-lg p-4 h-24 my-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+      />
+    ));
+  };
 
   const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
     console.log("Movendo card", { id, index, columnIndex, dragDistance });
@@ -83,21 +93,17 @@ const Home = () => {
     const columnNames: ('toDo' | 'doing' | 'inProgress' | 'done')[] = ['toDo', 'doing', 'inProgress', 'done'];
     const currentColumn = columnNames[columnIndex];
 
-    // Mover card para a próxima coluna se o arrasto for maior que 100px
     if (dragDistance > 100 && columnIndex < columnNames.length - 1) {
       const updatedColumns = { ...columns };
 
-      // Acessando as colunas com as chaves corretas
       const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
       updatedColumns[columnNames[columnIndex + 1]].items.push(itemToMove[0]);
 
       setColumns(updatedColumns);
     }
-    // Mover card para a coluna anterior se o arrasto for maior que 100px e não for a primeira coluna
     else if (dragDistance < -100 && columnIndex > 0) {
       const updatedColumns = { ...columns };
 
-      // Acessando as colunas com as chaves corretas
       const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
       updatedColumns[columnNames[columnIndex - 1]].items.push(itemToMove[0]);
 
@@ -116,32 +122,34 @@ const Home = () => {
         {Object.entries(columns).map(([columnName, column], colIndex) => (
           <motion.div
             key={columnName}
-            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2"
+            className="border-[#4E4563] bg-[#F2F2F2] rounded-lg px-2 py-2 w-[350px] min-w-[100px] min-h-[200px]"
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1.5, scale: 1 }}
             transition={{ duration: 0.3, delay: colIndex * 0.2 }}
           >
             <strong className="text-black text-xl ml-2">{column.name}</strong>
             <div>
-              {column.items.map((card: any, index: any) => (
-                <motion.div
-                  key={card.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  <KanbanCard
-                    id={card.id}
-                    title={card.title}
-                    Description={card.description}
-                    finalDate={card.final_date}
-                    priority={card.priority}
-                    index={index}
-                    columnIndex={colIndex}
-                    moveCard={moveCard}
-                  />
-                </motion.div>
-              ))}
+              {loading
+                ? renderSkeletons()
+                : column.items.map((card: any, index: any) => (
+                    <motion.div
+                      key={card.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      <KanbanCard
+                        id={card.id}
+                        title={card.title}
+                        Description={card.description}
+                        finalDate={card.final_date}
+                        priority={card.priority}
+                        index={index}
+                        columnIndex={colIndex}
+                        moveCard={moveCard}                    
+                    />
+                    </motion.div>
+                  ))}
             </div>
           </motion.div>
         ))}
