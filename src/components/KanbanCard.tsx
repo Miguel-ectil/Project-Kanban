@@ -94,12 +94,24 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
     <>
       {message && <Message type={messageType} message={message} />}
       {showConfirmation && (
-        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-gray-200 p-4 rounded-lg text-center text-black w-1/3 border border-blue-500">
-            <p className="text-xl mb-4"> <strong>Tem certeza que deseja excluir esta tarefa?</strong></p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 animate-fade-in px-4">
+          <div className="bg-white p-6 rounded-xl shadow-xl text-center text-black w-full max-w-md border border-blue-500">
+            <p className="text-lg md:text-xl font-semibold mb-4 text-gray-800">
+              Tem certeza que deseja excluir esta tarefa?
+            </p>
             <div className="flex justify-center gap-4">
-              <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-1.5 rounded-lg w-24">Sim</button>
-              <button onClick={cancelDelete} className="bg-gray-500 text-white px-4 py-1.5 rounded-lg">Cancelar</button>
+              <button 
+                onClick={handleDelete} 
+                className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg w-28 transition-all duration-300"
+              >
+                Sim
+              </button>
+              <button 
+                onClick={cancelDelete} 
+                className="bg-gray-500 hover:bg-gray-600 text-white px-5 py-2 rounded-lg w-28 transition-all duration-300"
+              >
+                Cancelar
+              </button>
             </div>
           </div>
         </div>
