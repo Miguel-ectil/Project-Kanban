@@ -9,7 +9,7 @@ interface KanbanCardProps {
   id: string;
   title: string;
   Description: string;
-  finalDate: string;
+  final_date: string;
   priority: string;
   index: number;
   columnIndex: number;
@@ -20,7 +20,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
   id,
   title,
   Description,
-  finalDate,
+  final_date,
   priority,
   index,
   columnIndex,
@@ -75,7 +75,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
       LOW: 'green',
       Finalizado: 'hidden'
     };
-    if (finalDate === 'Finalizado') {
+    if (final_date === 'Finalizado') {
       return null;
     }
 
@@ -153,19 +153,19 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
               {priority === 'HIGH' && (
                 <>
                   <BiAlarm size={24} className="mt-1.5 text-red-500" />
-                  <p className="mt-2 text-red-500"><strong>{finalDate}</strong></p>
+                  <p className="mt-2 text-red-500"><strong>{final_date}</strong></p>
                 </>
               )}
-              {finalDate === 'Finalizado' && (
+              {final_date === 'Finalizado' && (
                 <>
                   <BiCheckCircle size={24} className="mt-1.5 text-green-500" />
-                  <p className="mt-2 text-green-500"><strong>{finalDate}</strong></p>
+                  <p className="mt-2 text-green-500"><strong>{final_date}</strong></p>
                 </>
               )}
-              {finalDate !== 'Finalizado' && priority !== 'HIGH' && (
+              {final_date !== 'Finalizado' && priority !== 'HIGH' && (
                 <>
                   <BiAlarm size={24} className="mt-1.5" />
-                  <p className="mt-2 "><strong>{finalDate}</strong></p>
+                  <p className="mt-2 "><strong>{final_date}</strong></p>
                 </>
               )}
             </div>
@@ -178,7 +178,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({
             id={id} 
             titleTask={title} 
             description={Description} 
-            finalDate={finalDate} 
+            final_date={final_date} 
             priority={priority}
           />
         )}

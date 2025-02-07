@@ -9,18 +9,18 @@ interface NewCardProps {
   id?: string;
   titleTask?: string;
   description?: string;
-  finalDate?: string;
+  final_date?: string;
   priority?: string;
 }
-export default function NewCard({ onClose, id, titleTask, description, finalDate, priority }: NewCardProps) {
+export default function NewCard({ onClose, id, titleTask, description, final_date, priority }: NewCardProps) {
   const cancelButtonRef = useRef(null);
   const [idTask, setIdTask] = useState(id);
   const [title, setTitle] = useState(titleTask || ''); 
   const [desc, setDesc] = useState(description || ''); 
-  const [date, setDate] = useState(finalDate || ''); 
+  const [date, setDate] = useState(final_date || ''); 
   const [taskPriority, setTaskPriority] = useState(priority || 'LOW');
   const [status, setStatus] = useState("pendente");
-  const [errors, setErrors] = useState({ title: "", description: "", finalDate: "" });
+  const [errors, setErrors] = useState({ title: "", description: "", final_date: "" });
   const [message, setMessage] = useState<string>('');
   const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
 
@@ -29,11 +29,11 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
   };
 
   const validateForm = () => {
-    let newErrors = { title: "", description: "", finalDate: "" };
+    let newErrors = { title: "", description: "", final_date: "" };
     
     if (!title.trim()) newErrors.title = "O título é obrigatório.";
     if (!desc.trim()) newErrors.description = "A descrição é obrigatória."; 
-    if (!date) newErrors.finalDate = "A data final é obrigatória.";
+    if (!date) newErrors.final_date = "A data final é obrigatória.";
   
     setErrors(newErrors);
   
@@ -56,16 +56,17 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
           setMessageType('success');
           
           setTimeout(() => {
+            onClose();
+          }, 1000)
+          setTimeout(() => {
             window.location.reload();
           }, 2000);
       }
     } catch (error: any) {
-      setMessage('Houve alguma falha ao tentar cadastrar a tarefa!');
+      setMessage(error.error);
       setMessageType('error')
     } finally {
-      setTimeout(() => {
-        onClose();
-      }, 1000)
+     
     }
   };
   
@@ -84,18 +85,17 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         // setMessage('Tarefa atualizada com sucesso!');
         // setMessageType('success')
         setTimeout(() => {
+          onClose();
+        }, 4000)
+        setTimeout(() => {
           window.location.reload();
-        }, 4000);
+        }, 4010);
       }
     } catch (error: any) {
       console.log(error)
       // setMessage('Houve alguma falha ao tentar atualizar a tarefa!');
       // setMessageType('error')
-    } finally {
-      setTimeout(() => {
-        onClose();
-      }, 4000)
-    }
+    } 
   };
 
   return (
@@ -183,7 +183,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
                               className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 pointer-events-none"
                             />
                           </div>
-                          {errors.finalDate && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.finalDate}</p>}
+                          {errors.final_date && <p className="text-red-500 text-xs mt-0.5 ml-1">{errors.final_date}</p>}
                           </div>
                           <div className='mt-4'>
                             <p className='text-xs text-black mb-1'>Priority</p>
