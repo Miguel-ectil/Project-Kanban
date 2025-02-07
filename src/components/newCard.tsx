@@ -75,7 +75,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         const data = {
           title: title,
           description: desc,
-          finalDate: date, 
+          final_date: date, 
           priority: taskPriority, 
         };
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
