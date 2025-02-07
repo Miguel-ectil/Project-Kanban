@@ -4,6 +4,7 @@ import axios from 'axios';
 import KanbanCard from '@/components/KanbanCard';
 import { motion } from 'framer-motion';
 import Message from '@/context/ToastContext';
+import Cookies from 'js-cookie';
 
 type ColumnType = {
   name: string;
@@ -17,15 +18,15 @@ const Home = () => {
   const [messageType, setMessageType] = useState<'success' | 'error' | 'info'>('info');
 
   const [columns, setColumns] = useState<{
-    toDo: ColumnType;
-    doing: ColumnType;
-    inProgress: ColumnType;
-    done: ColumnType;
+    pendente: ColumnType;
+    fazendo: ColumnType;
+    aprovacao: ColumnType;
+    finalizado: ColumnType;
   }>({
-    toDo: { name: 'Fazer', items: [] },
-    doing: { name: 'Fazendo', items: [] },
-    inProgress: { name: 'Aprovação', items: [] },
-    done: { name: 'Feito', items: [] },
+    pendente: { name: 'Fazer', items: [] },
+    fazendo: { name: 'Fazendo', items: [] },
+    aprovacao: { name: 'Aprovação', items: [] },
+    finalizado: { name: 'Feito', items: [] },
   });
 
   const getDadosKanban = async () => {
@@ -54,25 +55,25 @@ const Home = () => {
   useEffect(() => {
     if (dadosKanban.length > 0) {
       const colunasAtualizadas: any = {
-        toDo: { name: 'Fazer', items: [] },
-        doing: { name: 'Fazendo', items: [] },
-        inProgress: { name: 'Aprovação', items: [] },
-        done: { name: 'Feito', items: [] },
+        pendente: { name: 'Fazer', items: [] },
+        fazendo: { name: 'Fazendo', items: [] },
+        aprovacao: { name: 'Aprovação', items: [] },
+        finalizado: { name: 'Feito', items: [] },
       };
 
       dadosKanban.forEach((item) => {
         switch (item.status) {
           case 'pendente':
-            colunasAtualizadas.toDo.items.push(item);
+            colunasAtualizadas.pendente.items.push(item);
             break;
           case 'fazendo':
-            colunasAtualizadas.doing.items.push(item);
+            colunasAtualizadas.fazendo.items.push(item);
             break;
           case 'aprovacao':
-            colunasAtualizadas.inProgress.items.push(item);
+            colunasAtualizadas.aprovacao.items.push(item);
             break;
           case 'finalizado':
-            colunasAtualizadas.done.items.push(item);
+            colunasAtualizadas.finalizado.items.push(item);
             break;
           default:
             break;
@@ -94,31 +95,55 @@ const Home = () => {
       />
     ));
   };
-
-  const moveCard = ({ id, index, columnIndex, dragDistance }: any) => {
+ 
+  const moveCard = async ({ id, index, columnIndex, dragDistance }: any) => {
     console.log("Movendo card", { id, index, columnIndex, dragDistance });
-
-    const columnNames: ('toDo' | 'doing' | 'inProgress' | 'done')[] = ['toDo', 'doing', 'inProgress', 'done'];
+  
+    const columnNames: ('pendente' | 'fazendo' | 'aprovacao' | 'finalizado')[] = ['pendente', 'fazendo', 'aprovacao', 'finalizado'];
     const currentColumn = columnNames[columnIndex];
-
+  
+    let newStatus = "";
     if (dragDistance > 100 && columnIndex < columnNames.length - 1) {
-      const updatedColumns = { ...columns };
-
-      const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
-      updatedColumns[columnNames[columnIndex + 1]].items.push(itemToMove[0]);
-
-      setColumns(updatedColumns);
+      newStatus = columnNames[columnIndex + 1];
+    } else if (dragDistance < -100 && columnIndex > 0) {
+      newStatus = columnNames[columnIndex - 1];
+    } else {
+      return; // Se não houver mudança válida, sai da função
     }
-    else if (dragDistance < -100 && columnIndex > 0) {
-      const updatedColumns = { ...columns };
-
-      const itemToMove = updatedColumns[currentColumn].items.splice(index, 1);
-      updatedColumns[columnNames[columnIndex - 1]].items.push(itemToMove[0]);
-
-      setColumns(updatedColumns);
+  
+    const updatedColumns = { ...columns };
+    const itemToMove = updatedColumns[currentColumn].items.splice(index, 1)[0];
+  
+    updatedColumns[newStatus as keyof typeof columns].items.push({ ...itemToMove, status: newStatus });
+  
+    console.log("Tarefa movida:", { id: itemToMove.id, status: newStatus });
+  
+    // Atualiza a lista de tarefas no cookie
+    const savedTasks = JSON.parse(Cookies.get('kanbanTasks') || '[]');
+    const updatedTasks = [
+      ...savedTasks.filter((task: any) => task.id !== itemToMove.id),
+      { id: itemToMove.id, status: newStatus }
+    ];
+    Cookies.set('kanbanTasks', JSON.stringify(updatedTasks), { expires: 7 });
+  
+    setColumns(updatedColumns);
+  
+    try {
+      const data = { 
+        status: newStatus
+      };
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      await axios.put(`${apiUrl}/update-task/${itemToMove.id}`, data);
+  
+      console.log("Status atualizado no backend:", { id, newStatus });
+    } catch (error) {
+      console.error("Erro ao atualizar status no backend:", error);
+      setMessage("Falha ao atualizar a tarefa no servidor.");
+      setMessageType("error");
     }
   };
-
+  
+  
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-24 w-full">
       {message && <Message type={messageType} message={message} />}
