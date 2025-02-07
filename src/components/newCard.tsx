@@ -85,7 +85,7 @@ export default function NewCard({ onClose, id, titleTask, description, finalDate
         // setMessageType('success')
         setTimeout(() => {
           window.location.reload();
-        }, 5000);
+        }, 4000);
       }
     } catch (error: any) {
       console.log(error)
